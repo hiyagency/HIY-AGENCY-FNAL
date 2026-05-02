@@ -29,6 +29,11 @@ export const metadata: Metadata = {
     "automation agency",
     "digital growth studio",
   ],
+  icons: {
+    icon: [{ url: "/icon.svg", type: "image/svg+xml" }],
+    shortcut: ["/icon.svg"],
+    apple: [{ url: "/apple-icon.svg", type: "image/svg+xml" }],
+  },
   openGraph: {
     title: "HIY AGENCY - High Impact for You",
     description:

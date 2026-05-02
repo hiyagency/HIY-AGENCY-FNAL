@@ -2,6 +2,7 @@
 
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { useEffect, useState } from "react";
+import { HiyAgencyLogo } from "@/components/shared/HiyAgencyLogo";
 
 export function Preloader() {
   const prefersReducedMotion = useReducedMotion();
@@ -56,14 +57,13 @@ export function Preloader() {
             Skip
           </button>
           <div className="text-center">
-            <motion.p
-              className="text-[clamp(4rem,14vw,12rem)] font-black leading-none tracking-normal"
+            <motion.div
               initial={{ y: 40, opacity: 0, filter: "blur(12px)" }}
               animate={{ y: 0, opacity: 1, filter: "blur(0px)" }}
               transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1] }}
             >
-              HIY
-            </motion.p>
+              <HiyAgencyLogo className="mx-auto w-[240px] sm:w-[280px]" priority />
+            </motion.div>
             <motion.p
               className="mt-5 text-sm uppercase tracking-[0.45em] text-white/60"
               initial={{ opacity: 0, y: 16 }}

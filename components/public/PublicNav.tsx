@@ -10,6 +10,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import { HiyAgencyLogo } from "@/components/shared/HiyAgencyLogo";
 import { cn } from "@/lib/utils";
 
 const navItems = [
@@ -26,11 +27,8 @@ export function PublicNav() {
   return (
     <header className="fixed left-0 right-0 top-0 z-40 border-b border-white/10 bg-black/70 backdrop-blur-xl">
       <nav className="mx-auto flex h-20 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-        <Link className="group flex items-end gap-2" href="/" aria-label="HIY Agency home">
-          <span className="text-2xl font-black tracking-normal text-white">HIY</span>
-          <span className="pb-1 text-xs font-semibold uppercase tracking-[0.26em] text-white/45">
-            Agency
-          </span>
+        <Link className="group" href="/" aria-label="HIY Agency home">
+          <HiyAgencyLogo className="w-[150px] sm:w-[168px]" priority />
         </Link>
 
         <div className="hidden items-center gap-1 rounded-full border border-white/10 bg-white/[0.04] p-1 md:flex">

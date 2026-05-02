@@ -1,4 +1,5 @@
 ﻿import Link from "next/link";
+import { HiyAgencyLogo } from "@/components/shared/HiyAgencyLogo";
 import { contactInfo } from "@/lib/content";
 
 export function Footer() {
@@ -11,7 +12,7 @@ export function Footer() {
       </div>
       <div className="relative mx-auto grid max-w-7xl gap-10 md:grid-cols-[1.2fr_1fr_1fr]">
         <div>
-          <p className="text-4xl font-black tracking-normal">HIY AGENCY</p>
+          <HiyAgencyLogo className="w-[190px]" />
           <p className="mt-3 max-w-sm text-lg text-white/60">High Impact for You.</p>
           <p className="mt-6 max-w-md text-sm leading-6 text-white/45">
             Websites, ads, content, automation, and CRM systems for businesses

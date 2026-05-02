@@ -16,6 +16,7 @@ import {
   Wallet,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { HiyAgencyLogo } from "@/components/shared/HiyAgencyLogo";
 import { createSupabaseBrowserClient } from "@/lib/supabase/client";
 import { cn } from "@/lib/utils";
 
@@ -55,8 +56,8 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
       <aside className="border-b border-white/10 bg-[#080808] lg:sticky lg:top-0 lg:h-screen lg:border-b-0 lg:border-r">
         <div className="flex h-20 items-center justify-between px-5 lg:h-auto lg:flex-col lg:items-start lg:gap-8 lg:px-6 lg:py-7">
           <Link href="/admin">
-            <p className="text-3xl font-black tracking-normal">HIY</p>
-            <p className="text-xs uppercase tracking-[0.28em] text-white/42">Agency Admin</p>
+            <HiyAgencyLogo className="w-[132px]" />
+            <p className="mt-1 text-xs uppercase tracking-[0.28em] text-white/42">Agency Admin</p>
           </Link>
           <Button className="lg:hidden" size="icon" variant="outline" asChild>
             <Link href="/admin/todo">
