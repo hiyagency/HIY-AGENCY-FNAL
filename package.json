@@ -1,4 +1,12 @@
 {
+  "private": true,
+  "scripts": {
+    "dev": "npm --prefix hiy-agency-build run dev",
+    "build": "npm --prefix hiy-agency-build run build",
+    "start": "npm --prefix hiy-agency-build run start",
+    "lint": "npm --prefix hiy-agency-build run lint",
+    "postinstall": "npm install --prefix hiy-agency-build"
+  },
   "dependencies": {
     "codex": "^0.2.3"
   }
