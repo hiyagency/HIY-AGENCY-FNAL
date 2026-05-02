@@ -38,6 +38,14 @@ async function readTable<T extends SupabaseRow>(
   }
 }
 
+export async function getAdminTable<T extends SupabaseRow>(
+  table: string,
+  fallback: T[] = [],
+  orderColumn = "created_at",
+) {
+  return readTable(table, fallback, orderColumn);
+}
+
 export async function getPublishedServices() {
   if (!canReadSupabase()) {
     return services;
@@ -112,6 +120,7 @@ export async function getPublishedCaseStudies() {
       .from("case_studies")
       .select("*")
       .eq("status", "Published")
+      .order("display_order", { ascending: true, nullsFirst: false })
       .order("created_at", { ascending: false });
 
     if (error || !data) {
@@ -125,13 +134,18 @@ export async function getPublishedCaseStudies() {
 }
 
 export async function getAdminSnapshot() {
-  const [leads, clients, projects, employees, tasks, payments] = await Promise.all([
-    readTable("leads", sampleLeads),
-    readTable("clients", sampleClients),
-    readTable("projects", sampleProjects),
-    readTable("employees", sampleEmployees),
-    readTable("tasks", sampleTasks),
-    readTable("payments", samplePayments),
+  const [leads, clients, projects, employees, teamRows, tasks, payments, expenses, servicesRows, caseStudies, mediaUploads] = await Promise.all([
+    readTable("leads", sampleLeads as SupabaseRow[]),
+    readTable("clients", sampleClients as SupabaseRow[]),
+    readTable("projects", sampleProjects as SupabaseRow[]),
+    readTable("employees", sampleEmployees as SupabaseRow[]),
+    readTable("team_members", [] as SupabaseRow[]),
+    readTable("tasks", sampleTasks as SupabaseRow[]),
+    readTable("payments", samplePayments as SupabaseRow[]),
+    readTable("expenses", [] as SupabaseRow[]),
+    readTable("services", [] as SupabaseRow[]),
+    readTable("case_studies", [] as SupabaseRow[]),
+    readTable("media_uploads", [] as SupabaseRow[]),
   ]);
 
   const totalCollected = payments.reduce(
@@ -139,12 +153,22 @@ export async function getAdminSnapshot() {
     0,
   );
   const totalPending = payments.reduce(
-    (sum, payment) => sum + Number(payment.amount_pending ?? 0),
+    (sum, payment) =>
+      sum +
+      Number(
+        payment.amount_pending ??
+          Math.max(Number(payment.total_amount ?? 0) - Number(payment.amount_paid ?? 0), 0),
+      ),
     0,
   );
-  const totalExpenses = 18000;
+  const manualIncome = expenses
+    .filter((expense) => expense.type === "income")
+    .reduce((sum, expense) => sum + Number(expense.amount ?? 0), 0);
+  const totalExpenses = expenses
+    .filter((expense) => expense.type !== "income")
+    .reduce((sum, expense) => sum + Number(expense.amount ?? 0), 0);
   const employeePayoutsPending = employees.reduce(
-    (sum, employee) => sum + Number(employee.payout_due ?? 0),
+    (sum, employee) => sum + Number(employee.total_payout_due ?? employee.payout_due ?? 0),
     0,
   );
 
@@ -153,8 +177,13 @@ export async function getAdminSnapshot() {
     clients,
     projects,
     employees,
+    teamMembers: teamRows,
     tasks,
     payments,
+    expenses,
+    services: servicesRows,
+    caseStudies,
+    mediaUploads,
     metrics: {
       totalLeads: leads.length,
       newLeads: leads.filter((lead) => lead.status === "New").length,
@@ -164,7 +193,7 @@ export async function getAdminSnapshot() {
       deliveredWorks: projects.filter((project) => project.status === "Delivered").length,
       paymentsCollected: totalCollected,
       paymentsPending: totalPending,
-      totalIncome: totalCollected + totalPending,
+      totalIncome: totalCollected + totalPending + manualIncome,
       totalExpenses,
       netProfit: totalCollected - totalExpenses - employeePayoutsPending,
       pendingTasks: tasks.filter((task) => task.status !== "Done").length,

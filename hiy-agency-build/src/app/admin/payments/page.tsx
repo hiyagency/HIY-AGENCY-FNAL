@@ -1,12 +1,5 @@
-import { AdminPageHeader, StatusBadge, currency } from "@/components/admin/AdminPrimitives";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
+import { AdminCrudPanel } from "@/components/admin/AdminCrudPanel";
+import { AdminPageHeader } from "@/components/admin/AdminPrimitives";
 import { getAdminSnapshot } from "@/lib/data";
 
 export default async function PaymentsPage() {
@@ -19,36 +12,19 @@ export default async function PaymentsPage() {
         title="Payment tracking"
         description="Track total amount, paid amount, pending amount, payment status, due dates, payment method, and notes."
       />
-      <section className="mt-8 overflow-hidden rounded-[1.4rem] border border-white/10 bg-[#0b0b0b]">
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead>Client</TableHead>
-              <TableHead>Project</TableHead>
-              <TableHead>Total</TableHead>
-              <TableHead>Paid</TableHead>
-              <TableHead>Pending</TableHead>
-              <TableHead>Status</TableHead>
-              <TableHead>Due date</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {snapshot.payments.map((payment) => (
-              <TableRow key={`${payment.client}-${payment.project}`}>
-                <TableCell className="font-medium text-white">{String(payment.client)}</TableCell>
-                <TableCell>{String(payment.project)}</TableCell>
-                <TableCell>{currency(Number(payment.total_amount ?? 0))}</TableCell>
-                <TableCell>{currency(Number(payment.amount_paid ?? 0))}</TableCell>
-                <TableCell>{currency(Number(payment.amount_pending ?? 0))}</TableCell>
-                <TableCell>
-                  <StatusBadge value={String(payment.payment_status)} />
-                </TableCell>
-                <TableCell>{String(payment.due_date)}</TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </section>
+      <AdminCrudPanel
+        moduleKey="payments"
+        rows={snapshot.payments}
+        columns={[
+          { key: "client", label: "Client" },
+          { key: "project", label: "Project" },
+          { key: "total_amount", label: "Total" },
+          { key: "amount_paid", label: "Paid" },
+          { key: "amount_pending", label: "Pending" },
+          { key: "status", label: "Status" },
+          { key: "due_date", label: "Due date" },
+        ]}
+      />
     </main>
   );
 }

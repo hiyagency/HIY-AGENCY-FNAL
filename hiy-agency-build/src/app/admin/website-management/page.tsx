@@ -1,12 +1,13 @@
-﻿import { AdminPageHeader } from "@/components/admin/AdminPrimitives";
 import { saveContactSettingsAction, saveHeroSettingsAction } from "@/app/actions/site";
+import { AdminCrudPanel } from "@/components/admin/AdminCrudPanel";
+import { AdminPageHeader } from "@/components/admin/AdminPrimitives";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { contactInfo, processSteps, whyHiy } from "@/lib/content";
-import { getPublishedServices, getPublishedTeamMembers } from "@/lib/data";
+import { getAdminSnapshot } from "@/lib/data";
 
 const managementAreas = [
   "Hero Management",
@@ -19,10 +20,7 @@ const managementAreas = [
 ];
 
 export default async function WebsiteManagementPage() {
-  const [services, teamMembers] = await Promise.all([
-    getPublishedServices(),
-    getPublishedTeamMembers(),
-  ]);
+  const snapshot = await getAdminSnapshot();
 
   return (
     <main className="px-4 py-8 sm:px-6 lg:px-8">
@@ -48,98 +46,111 @@ export default async function WebsiteManagementPage() {
       <section className="mt-8 grid gap-5 xl:grid-cols-2">
         <form action={saveHeroSettingsAction}>
           <Card className="border-white/10 bg-[#0b0b0b] text-white">
-          <CardHeader>
-            <CardTitle>Hero Management</CardTitle>
-            <CardDescription>
-              Default production copy. Saves into the `site_settings` row for live editing.
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="grid gap-4">
-            <Field label="Eyebrow" name="eyebrow" value="HIGH IMPACT DIGITAL AGENCY" />
-            <Field
-              label="Headline"
-              name="headline"
-              value="We build websites, ads, content, and systems that help businesses grow faster."
-            />
-            <Field
-              label="Subheadline"
-              name="subheadline"
-              textarea
-              value="HIY Agency creates custom websites, performance marketing campaigns, premium creatives, automation systems, and brand experiences for businesses that want more traffic, better leads, and stronger online presence."
-            />
-            <div className="grid gap-3 md:grid-cols-2">
-              <Field label="Primary CTA" name="primaryCta" value="Start Your Project" />
-              <Field label="Secondary CTA" name="secondaryCta" value="View Services" />
-            </div>
-            <Button className="rounded-full" type="submit">Save hero settings</Button>
-          </CardContent>
-        </Card>
+            <CardHeader>
+              <CardTitle>Hero Management</CardTitle>
+              <CardDescription>
+                Default production copy. Saves into the `site_settings` row for live editing.
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="grid gap-4">
+              <Field label="Eyebrow" name="eyebrow" value="HIGH IMPACT DIGITAL AGENCY" />
+              <Field
+                label="Headline"
+                name="headline"
+                value="We build websites, ads, content, and systems that help businesses grow faster."
+              />
+              <Field
+                label="Subheadline"
+                name="subheadline"
+                textarea
+                value="HIY Agency creates custom websites, performance marketing campaigns, premium creatives, automation systems, and brand experiences for businesses that want more traffic, better leads, and stronger online presence."
+              />
+              <div className="grid gap-3 md:grid-cols-2">
+                <Field label="Primary CTA" name="primaryCta" value="Start Your Project" />
+                <Field label="Secondary CTA" name="secondaryCta" value="View Services" />
+              </div>
+              <Button className="rounded-full" type="submit">
+                Save hero settings
+              </Button>
+            </CardContent>
+          </Card>
         </form>
 
         <form action={saveContactSettingsAction}>
           <Card className="border-white/10 bg-[#0b0b0b] text-white">
-          <CardHeader>
-            <CardTitle>Contact Info Management</CardTitle>
-            <CardDescription>
-              Update phone, WhatsApp, email, Instagram, Facebook, and optional address.
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="grid gap-4">
-            <Field label="Phone" name="phone" value={contactInfo.phone} />
-            <Field label="WhatsApp" name="whatsapp" value={contactInfo.whatsapp} />
-            <Field label="Email" name="email" value={contactInfo.email} />
-            <Field label="Instagram" name="instagram" value={contactInfo.instagram} />
-            <Field label="Facebook" name="facebook" value={contactInfo.facebook} />
-            <Button className="rounded-full" type="submit">Save contact info</Button>
-          </CardContent>
-        </Card>
+            <CardHeader>
+              <CardTitle>Contact Info Management</CardTitle>
+              <CardDescription>
+                Update phone, WhatsApp, email, Instagram, Facebook, and optional address.
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="grid gap-4">
+              <Field label="Phone" name="phone" value={contactInfo.phone} />
+              <Field label="WhatsApp" name="whatsapp" value={contactInfo.whatsapp} />
+              <Field label="Email" name="email" value={contactInfo.email} />
+              <Field label="Instagram" name="instagram" value={contactInfo.instagram} />
+              <Field label="Facebook" name="facebook" value={contactInfo.facebook} />
+              <Button className="rounded-full" type="submit">
+                Save contact info
+              </Button>
+            </CardContent>
+          </Card>
         </form>
       </section>
 
-      <section className="mt-8 grid gap-5 xl:grid-cols-2">
-        <Card className="border-white/10 bg-[#0b0b0b] text-white">
-          <CardHeader>
-            <CardTitle>Services Management</CardTitle>
-            <CardDescription>
-              Add, edit, delete, order, feature, and publish services from the `services` table.
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="grid gap-3">
-            {services.map((service, index) => (
-              <div
-                className="rounded-2xl border border-white/10 bg-black p-4"
-                key={service.slug}
-              >
-                <p className="text-xs uppercase tracking-[0.2em] text-white/35">
-                  Order {index + 1}
-                </p>
-                <h3 className="mt-2 font-semibold tracking-normal">{service.shortTitle}</h3>
-                <p className="mt-2 line-clamp-2 text-sm text-white/50">{service.description}</p>
-              </div>
-            ))}
-          </CardContent>
-        </Card>
-
-        <Card className="border-white/10 bg-[#0b0b0b] text-white">
-          <CardHeader>
-            <CardTitle>Team and case study management</CardTitle>
-            <CardDescription>
-              Team photos, case covers, galleries, receipts, and website images use Supabase Storage.
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="grid gap-4">
-            {teamMembers.map((member) => (
-              <div className="rounded-2xl border border-white/10 bg-black p-4" key={member.name}>
-                <h3 className="font-semibold tracking-normal">{member.name}</h3>
-                <p className="mt-1 text-sm text-white/50">{member.role}</p>
-              </div>
-            ))}
-            <div className="rounded-2xl border border-dashed border-white/15 bg-black p-5 text-sm text-white/50">
-              Case studies are currently empty. Published case studies will appear on the public Work route.
-            </div>
-          </CardContent>
-        </Card>
-      </section>
+      <AdminCrudPanel
+        moduleKey="services"
+        rows={snapshot.services}
+        title="Services Management"
+        description="Add, edit, delete, order, feature, and publish public service cards."
+        columns={[
+          { key: "title", label: "Title" },
+          { key: "short_title", label: "Short label" },
+          { key: "slug", label: "Slug" },
+          { key: "display_order", label: "Order" },
+          { key: "featured", label: "Featured" },
+          { key: "published", label: "Published" },
+        ]}
+      />
+      <AdminCrudPanel
+        moduleKey="team_members"
+        rows={snapshot.teamMembers}
+        title="Team Management"
+        description="Manage public team cards, profile photos, bios, tags, order, and published state."
+        columns={[
+          { key: "name", label: "Name" },
+          { key: "role", label: "Role" },
+          { key: "experience", label: "Experience" },
+          { key: "tags", label: "Tags" },
+          { key: "display_order", label: "Order" },
+          { key: "published", label: "Published" },
+        ]}
+      />
+      <AdminCrudPanel
+        moduleKey="case_studies"
+        rows={snapshot.caseStudies}
+        title="Case Study Management"
+        description="Create work showcase records with cover images, galleries, services, results, and publish controls."
+        columns={[
+          { key: "title", label: "Title" },
+          { key: "client_name", label: "Client" },
+          { key: "category", label: "Category" },
+          { key: "status", label: "Status" },
+          { key: "featured", label: "Featured" },
+          { key: "display_order", label: "Order" },
+        ]}
+      />
+      <AdminCrudPanel
+        moduleKey="website_images"
+        rows={snapshot.mediaUploads}
+        title="Website Images"
+        description="Upload reusable website assets to the website-assets Supabase Storage bucket."
+        columns={[
+          { key: "purpose", label: "Purpose" },
+          { key: "bucket", label: "Bucket" },
+          { key: "public_url", label: "URL" },
+        ]}
+      />
 
       <section className="mt-8 grid gap-5 xl:grid-cols-2">
         <Card className="border-white/10 bg-[#0b0b0b] text-white">
@@ -195,4 +206,3 @@ function Field({
     </div>
   );
 }
-

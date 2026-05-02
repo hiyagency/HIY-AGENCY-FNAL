@@ -1,14 +1,7 @@
-import { AdminPageHeader, StatusBadge } from "@/components/admin/AdminPrimitives";
+import { AdminCrudPanel } from "@/components/admin/AdminCrudPanel";
+import { AdminPageHeader } from "@/components/admin/AdminPrimitives";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
 import { getAdminSnapshot } from "@/lib/data";
 
 export default async function LeadsPage({
@@ -44,38 +37,19 @@ export default async function LeadsPage({
         <Input name="status" placeholder="Status filter" defaultValue={params?.status} />
         <Button type="submit">Filter Leads</Button>
       </form>
-      <section className="mt-6 overflow-hidden rounded-[1.4rem] border border-white/10 bg-[#0b0b0b]">
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead>Name</TableHead>
-              <TableHead>Phone</TableHead>
-              <TableHead>Email</TableHead>
-              <TableHead>Work Required</TableHead>
-              <TableHead>Budget</TableHead>
-              <TableHead>Timeline</TableHead>
-              <TableHead>Status</TableHead>
-              <TableHead>Source</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {leads.map((lead) => (
-              <TableRow key={`${lead.email}-${lead.created_at}`}>
-                <TableCell className="font-medium text-white">{String(lead.name)}</TableCell>
-                <TableCell>{String(lead.phone)}</TableCell>
-                <TableCell>{String(lead.email)}</TableCell>
-                <TableCell>{String(lead.work_required)}</TableCell>
-                <TableCell>{String(lead.budget)}</TableCell>
-                <TableCell>{String(lead.timeline_days)} days</TableCell>
-                <TableCell>
-                  <StatusBadge value={String(lead.status)} />
-                </TableCell>
-                <TableCell>{String(lead.source)}</TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </section>
+      <AdminCrudPanel
+        moduleKey="leads"
+        rows={leads}
+        columns={[
+          { key: "name", label: "Name" },
+          { key: "phone", label: "Phone" },
+          { key: "email", label: "Email" },
+          { key: "work_required", label: "Work Required" },
+          { key: "budget", label: "Budget" },
+          { key: "status", label: "Status" },
+          { key: "source", label: "Source" },
+        ]}
+      />
     </main>
   );
 }

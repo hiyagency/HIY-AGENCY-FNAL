@@ -49,12 +49,14 @@ export default async function CaseStudiesPage() {
                     key={String(study.id)}
                   >
                     <p className="text-sm uppercase tracking-[0.2em] text-white/40">
-                      {String(study.industry)}
+                      {String(study.category ?? study.industry ?? "Case Study")}
                     </p>
                     <h2 className="mt-5 text-3xl font-semibold tracking-normal">
-                      {String(study.client_name)}
+                      {String(study.title ?? study.client_name)}
                     </h2>
-                    <p className="mt-4 text-white/55">{String(study.solution)}</p>
+                    <p className="mt-4 text-white/55">
+                      {String(study.short_summary ?? study.solution ?? study.problem ?? "")}
+                    </p>
                   </article>
                 ))}
               </div>

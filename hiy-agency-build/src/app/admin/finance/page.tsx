@@ -1,3 +1,4 @@
+import { AdminCrudPanel } from "@/components/admin/AdminCrudPanel";
 import { AdminPageHeader, MetricCard, currency } from "@/components/admin/AdminPrimitives";
 import { RevenueChart } from "@/components/admin/AdminCharts";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -67,6 +68,20 @@ export default async function FinancePage() {
           </CardContent>
         </Card>
       </section>
+      <AdminCrudPanel
+        moduleKey="expenses"
+        rows={snapshot.expenses}
+        title="Income and expense records"
+        description="Add income, operating expenses, client work expenses, receipts, and payment notes. Dashboard totals update from these rows."
+        columns={[
+          { key: "title", label: "Title" },
+          { key: "type", label: "Type" },
+          { key: "amount", label: "Amount" },
+          { key: "category", label: "Category" },
+          { key: "expense_date", label: "Date" },
+          { key: "payment_method", label: "Method" },
+        ]}
+      />
     </main>
   );
 }

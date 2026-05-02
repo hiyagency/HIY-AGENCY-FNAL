@@ -1,13 +1,6 @@
-import { AdminPageHeader, MetricCard, StatusBadge, currency } from "@/components/admin/AdminPrimitives";
+import { AdminCrudPanel } from "@/components/admin/AdminCrudPanel";
+import { AdminPageHeader, MetricCard, currency } from "@/components/admin/AdminPrimitives";
 import { Input } from "@/components/ui/input";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
 import { getAdminSnapshot } from "@/lib/data";
 
 export default async function ClientsPage() {
@@ -33,42 +26,19 @@ export default async function ClientsPage() {
       <div className="mt-8 rounded-[1.4rem] border border-white/10 bg-[#0b0b0b] p-4">
         <Input placeholder="Search clients by name, business, service, status, or deadline" />
       </div>
-      <section className="mt-6 overflow-hidden rounded-[1.4rem] border border-white/10 bg-[#0b0b0b]">
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead>Client</TableHead>
-              <TableHead>Business</TableHead>
-              <TableHead>Service</TableHead>
-              <TableHead>Status</TableHead>
-              <TableHead>Amount</TableHead>
-              <TableHead>Paid</TableHead>
-              <TableHead>Pending</TableHead>
-              <TableHead>Deadline</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {snapshot.clients.map((client) => {
-              const amount = Number(client.payment_amount ?? 0);
-              const amountPaid = Number(client.amount_paid ?? 0);
-              return (
-                <TableRow key={`${client.client_name}-${client.business_name}`}>
-                  <TableCell className="font-medium text-white">{String(client.client_name)}</TableCell>
-                  <TableCell>{String(client.business_name)}</TableCell>
-                  <TableCell>{String(client.service_type)}</TableCell>
-                  <TableCell>
-                    <StatusBadge value={String(client.project_status)} />
-                  </TableCell>
-                  <TableCell>{currency(amount)}</TableCell>
-                  <TableCell>{currency(amountPaid)}</TableCell>
-                  <TableCell>{currency(amount - amountPaid)}</TableCell>
-                  <TableCell>{String(client.deadline)}</TableCell>
-                </TableRow>
-              );
-            })}
-          </TableBody>
-        </Table>
-      </section>
+      <AdminCrudPanel
+        moduleKey="clients"
+        rows={snapshot.clients}
+        columns={[
+          { key: "client_name", label: "Client" },
+          { key: "business_name", label: "Business" },
+          { key: "service_type", label: "Service" },
+          { key: "project_status", label: "Status" },
+          { key: "payment_amount", label: "Amount" },
+          { key: "amount_paid", label: "Paid" },
+          { key: "deadline", label: "Deadline" },
+        ]}
+      />
     </main>
   );
 }

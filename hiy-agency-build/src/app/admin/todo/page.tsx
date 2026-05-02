@@ -1,4 +1,5 @@
-﻿import { AdminPageHeader, StatusBadge } from "@/components/admin/AdminPrimitives";
+import { AdminCrudPanel } from "@/components/admin/AdminCrudPanel";
+import { AdminPageHeader, StatusBadge } from "@/components/admin/AdminPrimitives";
 import { getAdminSnapshot } from "@/lib/data";
 
 const columns = ["Todo", "In Progress", "Done", "Blocked"];
@@ -26,7 +27,7 @@ export default async function TodoPage() {
                   </div>
                 ) : (
                   tasks.map((task) => (
-                    <article className="rounded-2xl border border-white/10 bg-black p-4" key={task.title}>
+                    <article className="rounded-2xl border border-white/10 bg-black p-4" key={String(task.title)}>
                       <h3 className="font-semibold tracking-normal">{String(task.title)}</h3>
                       <p className="mt-3 text-sm text-white/50">
                         Assigned to {String(task.assigned_employee ?? "Unassigned")}
@@ -43,7 +44,19 @@ export default async function TodoPage() {
           );
         })}
       </section>
+      <AdminCrudPanel
+        moduleKey="tasks"
+        rows={snapshot.tasks}
+        columns={[
+          { key: "title", label: "Task" },
+          { key: "assigned_employee", label: "Owner" },
+          { key: "status", label: "Status" },
+          { key: "priority", label: "Priority" },
+          { key: "due_date", label: "Due date" },
+          { key: "reminder_date", label: "Reminder" },
+          { key: "notes", label: "Notes" },
+        ]}
+      />
     </main>
   );
 }
-

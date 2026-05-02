@@ -1,4 +1,5 @@
-﻿import { AdminPageHeader, StatusBadge } from "@/components/admin/AdminPrimitives";
+import { AdminCrudPanel } from "@/components/admin/AdminCrudPanel";
+import { AdminPageHeader, StatusBadge } from "@/components/admin/AdminPrimitives";
 import { Progress } from "@/components/ui/progress";
 import { getAdminSnapshot } from "@/lib/data";
 
@@ -32,7 +33,7 @@ export default async function ProjectsPage() {
                   </div>
                 ) : (
                   projects.map((project) => (
-                    <article className="rounded-2xl border border-white/10 bg-black p-4" key={project.title}>
+                    <article className="rounded-2xl border border-white/10 bg-black p-4" key={String(project.title)}>
                       <div className="flex items-start justify-between gap-4">
                         <h3 className="font-semibold tracking-normal">{String(project.title)}</h3>
                         <StatusBadge value={String(project.priority)} />
@@ -50,7 +51,20 @@ export default async function ProjectsPage() {
           );
         })}
       </section>
+      <AdminCrudPanel
+        moduleKey="projects"
+        rows={snapshot.projects}
+        columns={[
+          { key: "title", label: "Project" },
+          { key: "service_category", label: "Type" },
+          { key: "status", label: "Status" },
+          { key: "priority", label: "Priority" },
+          { key: "budget", label: "Budget" },
+          { key: "amount_paid", label: "Paid" },
+          { key: "due_date", label: "Deadline" },
+          { key: "published", label: "Published" },
+        ]}
+      />
     </main>
   );
 }
-
