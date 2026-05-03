@@ -23,6 +23,7 @@ alter table case_studies add column if not exists full_description text;
 alter table case_studies add column if not exists cloudinary_public_id text;
 alter table case_studies add column if not exists video_url text;
 alter table case_studies add column if not exists cta_text text;
+alter table case_studies add column if not exists use_poster_gallery_images boolean not null default false;
 alter table case_studies add column if not exists display_order integer not null default 0;
 
 update case_studies
@@ -34,6 +35,11 @@ where title is null
    or category is null
    or short_summary is null
    or full_description is null;
+
+update case_studies
+set use_poster_gallery_images = true
+where (cover_image_url is not null and cover_image_url <> '')
+   or cardinality(gallery_images) > 0;
 
 insert into storage.buckets (id, name, public)
 values ('website-assets', 'website-assets', true)

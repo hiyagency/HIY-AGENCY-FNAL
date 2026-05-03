@@ -31,6 +31,7 @@ export type PublicCaseStudy = {
   videoUrl: string;
   posterUrl: string;
   hasVideo: boolean;
+  useImages: boolean;
   href: string;
   ctaLabel: string;
   services: string[];
@@ -86,6 +87,7 @@ function normalizeCaseStudy(study: SupabaseRow): PublicCaseStudy {
   const cloudinaryPublicId = cleanText(study.cloudinary_public_id);
   const rawVideoUrl = cleanText(study.video_url);
   const coverImage = cleanText(study.cover_image_url);
+  const useImages = Boolean(study.use_poster_gallery_images);
   const videoUrl = getCloudinaryVideoUrl({
     publicId: cloudinaryPublicId,
     secureUrl: rawVideoUrl,
@@ -93,7 +95,7 @@ function normalizeCaseStudy(study: SupabaseRow): PublicCaseStudy {
   const posterUrl = getCloudinaryPosterUrl({
     publicId: cloudinaryPublicId,
     secureUrl: rawVideoUrl,
-    posterUrl: coverImage,
+    posterUrl: useImages ? coverImage : "",
   });
 
   return {
@@ -115,10 +117,11 @@ function normalizeCaseStudy(study: SupabaseRow): PublicCaseStudy {
       cleanText(study.short_summary) ||
       "A cleaner brand experience built to create trust and convert more conversations.",
     industry: cleanText(study.industry) || service,
-    imageUrl: coverImage || posterUrl || null,
+    imageUrl: (useImages ? coverImage : "") || posterUrl || null,
     videoUrl,
     posterUrl,
     hasVideo: Boolean(videoUrl),
+    useImages,
     href: cleanText(study.website_url) || "/contact",
     ctaLabel:
       cleanText(study.cta_text) ||

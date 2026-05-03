@@ -67,6 +67,12 @@ export function AdminCrudPanel({
       Object.fromEntries(
         moduleConfig.fields.map((field) => {
           const value = row[field.name];
+          if (moduleKey === "case_studies" && field.name === "use_poster_gallery_images") {
+            const hasExistingImages =
+              Boolean(row.cover_image_url) ||
+              (Array.isArray(row.gallery_images) && row.gallery_images.length > 0);
+            return [field.name, Boolean(value) || hasExistingImages];
+          }
           if (field.type === "tags" || field.type === "images") {
             return [field.name, Array.isArray(value) ? value.join(", ") : String(value ?? "")];
           }
@@ -219,12 +225,14 @@ export function AdminCrudPanel({
           <form className="grid gap-4" onSubmit={submit}>
             <div className="grid gap-4 md:grid-cols-2">
               {moduleConfig.fields.map((field) => (
-                <FieldInput
-                  field={field}
-                  key={field.name}
-                  value={formValues[field.name]}
-                  onChange={(value) => updateValue(field.name, value)}
-                />
+                shouldShowField(moduleKey, field, formValues) ? (
+                  <FieldInput
+                    field={field}
+                    key={field.name}
+                    value={formValues[field.name]}
+                    onChange={(value) => updateValue(field.name, value)}
+                  />
+                ) : null
               ))}
             </div>
             {error ? <p className="text-sm text-white/65">{error}</p> : null}
@@ -241,6 +249,21 @@ export function AdminCrudPanel({
       </Dialog>
     </section>
   );
+}
+
+function shouldShowField(
+  moduleKey: AdminModuleKey,
+  field: AdminField,
+  formValues: Record<string, unknown>,
+) {
+  if (
+    moduleKey === "case_studies" &&
+    (field.name === "cover_image_url" || field.name === "gallery_images")
+  ) {
+    return Boolean(formValues.use_poster_gallery_images);
+  }
+
+  return true;
 }
 
 function FieldInput({

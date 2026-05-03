@@ -249,6 +249,7 @@ export const adminModules = {
       { name: "results", label: "Result metric", type: "textarea" },
       { name: "cloudinary_public_id", label: "Cloudinary public ID", type: "text" },
       { name: "video_url", label: "Cloudinary video URL", type: "text" },
+      { name: "use_poster_gallery_images", label: "Use poster/gallery images", type: "boolean" },
       { name: "cover_image_url", label: "Poster image", type: "image", uploadFolder: "case-covers" },
       { name: "gallery_images", label: "Gallery images", type: "images", uploadFolder: "case-gallery" },
       { name: "cta_text", label: "CTA text", type: "text", placeholder: "Build My Case Study" },
