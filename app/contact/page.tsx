@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Footer } from "@/components/public/Footer";
 import { LeadForm } from "@/components/public/LeadForm";
 import { PublicNav } from "@/components/public/PublicNav";
+import { SocialIconLinks } from "@/components/public/SocialIconLinks";
 import { Reveal } from "@/components/motion/Reveal";
 import { contactInfo } from "@/lib/content";
 
@@ -35,13 +36,8 @@ export default function ContactPage() {
                 <Link className="text-white/75 underline underline-offset-4" href={contactInfo.whatsapp}>
                   WhatsApp / Call: {contactInfo.phone}
                 </Link>
-                <Link className="text-white/75 underline underline-offset-4" href={contactInfo.instagram}>
-                  Instagram: {contactInfo.instagramHandle}
-                </Link>
-                <Link className="text-white/75 underline underline-offset-4" href={contactInfo.facebook}>
-                  Facebook
-                </Link>
               </div>
+              <SocialIconLinks className="mt-6" />
             </div>
           </Reveal>
           <Reveal delay={0.12}>

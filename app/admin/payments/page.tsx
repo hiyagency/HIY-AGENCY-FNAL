@@ -16,8 +16,8 @@ export default async function PaymentsPage() {
         moduleKey="payments"
         rows={snapshot.payments}
         columns={[
-          { key: "client", label: "Client" },
-          { key: "project", label: "Project" },
+          { key: "client_name", label: "Client" },
+          { key: "project_title", label: "Project" },
           { key: "total_amount", label: "Total" },
           { key: "amount_paid", label: "Paid" },
           { key: "amount_pending", label: "Pending" },

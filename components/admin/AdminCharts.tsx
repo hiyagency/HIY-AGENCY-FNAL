@@ -15,7 +15,9 @@ import {
   YAxis,
 } from "recharts";
 
-const revenueData = [
+type ChartPoint = Record<string, string | number>;
+
+const fallbackRevenueData = [
   { month: "Jan", income: 42000, expenses: 12000 },
   { month: "Feb", income: 58000, expenses: 18000 },
   { month: "Mar", income: 72000, expenses: 24000 },
@@ -23,14 +25,14 @@ const revenueData = [
   { month: "May", income: 126000, expenses: 36000 },
 ];
 
-const leadData = [
+const fallbackLeadData = [
   { status: "New", value: 8 },
   { status: "Contacted", value: 6 },
   { status: "Proposal", value: 4 },
   { status: "Converted", value: 3 },
 ];
 
-const workData = [
+const fallbackWorkData = [
   { status: "Pending", value: 3 },
   { status: "Progress", value: 7 },
   { status: "Review", value: 2 },
@@ -39,10 +41,12 @@ const workData = [
 
 const fills = ["#ffffff", "#d8d8d8", "#8a8a8a", "#666666"];
 
-export function RevenueChart() {
+export function RevenueChart({ data = fallbackRevenueData }: { data?: ChartPoint[] }) {
+  const chartData = data.length > 0 ? data : fallbackRevenueData;
+
   return (
     <ResponsiveContainer height={280} width="100%">
-      <AreaChart data={revenueData}>
+      <AreaChart data={chartData}>
         <defs>
           <linearGradient id="income" x1="0" x2="0" y1="0" y2="1">
             <stop offset="5%" stopColor="#ffffff" stopOpacity={0.5} />
@@ -79,13 +83,15 @@ export function RevenueChart() {
   );
 }
 
-export function LeadStatusChart() {
+export function LeadStatusChart({ data = fallbackLeadData }: { data?: ChartPoint[] }) {
+  const chartData = data.length > 0 ? data : fallbackLeadData;
+
   return (
     <ResponsiveContainer height={260} width="100%">
       <PieChart>
-        <Pie data={leadData} dataKey="value" innerRadius={62} outerRadius={94} paddingAngle={3}>
-          {leadData.map((entry, index) => (
-            <Cell fill={fills[index % fills.length]} key={entry.status} />
+        <Pie data={chartData} dataKey="value" innerRadius={62} outerRadius={94} paddingAngle={3}>
+          {chartData.map((entry, index) => (
+            <Cell fill={fills[index % fills.length]} key={String(entry.status)} />
           ))}
         </Pie>
         <Tooltip
@@ -101,10 +107,12 @@ export function LeadStatusChart() {
   );
 }
 
-export function WorkStatusChart() {
+export function WorkStatusChart({ data = fallbackWorkData }: { data?: ChartPoint[] }) {
+  const chartData = data.length > 0 ? data : fallbackWorkData;
+
   return (
     <ResponsiveContainer height={260} width="100%">
-      <BarChart data={workData}>
+      <BarChart data={chartData}>
         <CartesianGrid stroke="rgba(255,255,255,0.08)" vertical={false} />
         <XAxis dataKey="status" stroke="#8a8a8a" tickLine={false} />
         <YAxis stroke="#8a8a8a" tickLine={false} />
@@ -117,8 +125,8 @@ export function WorkStatusChart() {
           }}
         />
         <Bar dataKey="value" radius={[10, 10, 0, 0]}>
-          {workData.map((entry, index) => (
-            <Cell fill={fills[index % fills.length]} key={entry.status} />
+          {chartData.map((entry, index) => (
+            <Cell fill={fills[index % fills.length]} key={String(entry.status)} />
           ))}
         </Bar>
       </BarChart>

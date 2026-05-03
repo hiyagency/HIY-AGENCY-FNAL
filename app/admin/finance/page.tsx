@@ -37,7 +37,7 @@ export default async function FinancePage() {
             <CardTitle>Monthly income chart</CardTitle>
           </CardHeader>
           <CardContent>
-            <RevenueChart />
+            <RevenueChart data={snapshot.charts.revenue} />
           </CardContent>
         </Card>
         <Card className="border-white/10 bg-[#0b0b0b] text-white">
@@ -56,11 +56,11 @@ export default async function FinancePage() {
               </TableHeader>
               <TableBody>
                 {snapshot.payments.map((payment) => (
-                  <TableRow key={`${payment.client}-${payment.project}`}>
-                    <TableCell>{String(payment.client)}</TableCell>
-                    <TableCell>{String(payment.project)}</TableCell>
+                  <TableRow key={String(payment.id ?? `${payment.client_name}-${payment.project_title}`)}>
+                    <TableCell>{String(payment.client_name ?? "Unassigned")}</TableCell>
+                    <TableCell>{String(payment.project_title ?? "General payment")}</TableCell>
                     <TableCell>{currency(Number(payment.amount_pending ?? 0))}</TableCell>
-                    <TableCell>{String(payment.due_date)}</TableCell>
+                    <TableCell>{String(payment.due_date ?? "Not set")}</TableCell>
                   </TableRow>
                 ))}
               </TableBody>

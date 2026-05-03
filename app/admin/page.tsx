@@ -20,8 +20,13 @@ export default async function AdminDashboardPage() {
     ["New leads", metrics.newLeads],
     ["Converted leads", metrics.convertedLeads],
     ["Total clients", metrics.totalClients],
+    ["Projects", metrics.totalProjects],
+    ["Employees", metrics.activeEmployees],
+    ["Case studies", metrics.totalCaseStudies],
+    ["Finance records", metrics.totalFinanceRecords],
     ["Ongoing works", metrics.ongoingWorks],
     ["Delivered works", metrics.deliveredWorks],
+    ["Total payments", currency(metrics.totalPayments)],
     ["Payments collected", currency(metrics.paymentsCollected)],
     ["Payments to collect", currency(metrics.paymentsPending)],
     ["Total income", currency(metrics.totalIncome)],
@@ -45,6 +50,18 @@ export default async function AdminDashboardPage() {
           <MetricCard key={label} label={String(label)} value={value} />
         ))}
       </section>
+      {snapshot.errors.length > 0 ? (
+        <div className="mt-5 rounded-[1.2rem] border border-white/10 bg-[#0b0b0b] p-4 text-sm leading-6 text-white/58">
+          Some dashboard data could not be loaded from Supabase. Check table access or RLS:
+          {" "}
+          {snapshot.errors.join(" | ")}
+        </div>
+      ) : null}
+      {snapshot.usingDemoData ? (
+        <div className="mt-5 rounded-[1.2rem] border border-white/10 bg-[#0b0b0b] p-4 text-sm leading-6 text-white/58">
+          Supabase is not configured, so the dashboard is showing demo-only admin data.
+        </div>
+      ) : null}
 
       <section className="mt-8 grid gap-5 xl:grid-cols-[1.4fr_0.8fr_0.8fr]">
         <Card className="border-white/10 bg-[#0b0b0b] text-white">
@@ -52,7 +69,7 @@ export default async function AdminDashboardPage() {
             <CardTitle>Revenue and expense pulse</CardTitle>
           </CardHeader>
           <CardContent>
-            <RevenueChart />
+            <RevenueChart data={snapshot.charts.revenue} />
           </CardContent>
         </Card>
         <Card className="border-white/10 bg-[#0b0b0b] text-white">
@@ -60,7 +77,7 @@ export default async function AdminDashboardPage() {
             <CardTitle>Lead status</CardTitle>
           </CardHeader>
           <CardContent>
-            <LeadStatusChart />
+            <LeadStatusChart data={snapshot.charts.leads} />
           </CardContent>
         </Card>
         <Card className="border-white/10 bg-[#0b0b0b] text-white">
@@ -68,7 +85,7 @@ export default async function AdminDashboardPage() {
             <CardTitle>Work status</CardTitle>
           </CardHeader>
           <CardContent>
-            <WorkStatusChart />
+            <WorkStatusChart data={snapshot.charts.work} />
           </CardContent>
         </Card>
       </section>

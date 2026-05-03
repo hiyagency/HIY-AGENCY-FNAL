@@ -1,7 +1,8 @@
-﻿import type { Metadata } from "next";
+import type { Metadata } from "next";
+import { Reveal } from "@/components/motion/Reveal";
+import { CaseStudyShowcase } from "@/components/public/CaseStudyShowcase";
 import { Footer } from "@/components/public/Footer";
 import { PublicNav } from "@/components/public/PublicNav";
-import { Reveal } from "@/components/motion/Reveal";
 import { getPublishedCaseStudies } from "@/lib/data";
 
 export const metadata: Metadata = {
@@ -28,39 +29,7 @@ export default async function CaseStudiesPage() {
           </Reveal>
 
           <div className="mt-16">
-            {caseStudies.length === 0 ? (
-              <Reveal>
-                <div className="grid min-h-[430px] place-items-center rounded-[2rem] border border-white/10 bg-[#0b0b0b] p-8 text-center">
-                  <div>
-                    <p className="text-sm uppercase tracking-[0.26em] text-white/35">
-                      Case studies
-                    </p>
-                    <p className="mt-5 max-w-xl text-4xl font-semibold tracking-normal">
-                      Case studies are being prepared. New work will be added soon.
-                    </p>
-                  </div>
-                </div>
-              </Reveal>
-            ) : (
-              <div className="grid gap-5 md:grid-cols-3">
-                {caseStudies.map((study) => (
-                  <article
-                    className="rounded-[1.6rem] border border-white/10 bg-[#0b0b0b] p-6"
-                    key={String(study.id)}
-                  >
-                    <p className="text-sm uppercase tracking-[0.2em] text-white/40">
-                      {String(study.category ?? study.industry ?? "Case Study")}
-                    </p>
-                    <h2 className="mt-5 text-3xl font-semibold tracking-normal">
-                      {String(study.title ?? study.client_name)}
-                    </h2>
-                    <p className="mt-4 text-white/55">
-                      {String(study.short_summary ?? study.solution ?? study.problem ?? "")}
-                    </p>
-                  </article>
-                ))}
-              </div>
-            )}
+            <CaseStudyShowcase caseStudies={caseStudies} />
           </div>
         </section>
       </main>
@@ -68,4 +37,3 @@ export default async function CaseStudiesPage() {
     </>
   );
 }
-

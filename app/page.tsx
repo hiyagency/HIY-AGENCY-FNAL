@@ -1,8 +1,10 @@
 ﻿import Link from "next/link";
 import { ArrowUpRight, Check, CircleDot, Dot, MoveRight } from "lucide-react";
 import { Footer } from "@/components/public/Footer";
+import { CaseStudyShowcase } from "@/components/public/CaseStudyShowcase";
 import { LeadForm } from "@/components/public/LeadForm";
 import { PublicNav } from "@/components/public/PublicNav";
+import { SocialIconLinks } from "@/components/public/SocialIconLinks";
 import { HeroVisual } from "@/components/motion/HeroVisual";
 import { MagneticButton } from "@/components/motion/MagneticButton";
 import { Preloader } from "@/components/motion/Preloader";
@@ -318,37 +320,7 @@ export default async function Home() {
               </div>
             </Reveal>
             <div className="mt-14">
-              {caseStudies.length === 0 ? (
-                <Reveal>
-                  <div className="grid min-h-80 place-items-center rounded-[2rem] border border-white/10 bg-[#0b0b0b] p-8 text-center">
-                    <div>
-                      <p className="text-sm uppercase tracking-[0.26em] text-white/35">
-                        Case studies
-                      </p>
-                      <p className="mt-5 max-w-xl text-4xl font-semibold tracking-normal">
-                        Case studies are being prepared. New work will be added soon.
-                      </p>
-                    </div>
-                  </div>
-                </Reveal>
-              ) : (
-                <div className="grid gap-5 md:grid-cols-3">
-                  {caseStudies.map((study) => (
-                    <article
-                      className="rounded-[1.6rem] border border-white/10 bg-[#0b0b0b] p-6"
-                      key={String(study.id)}
-                    >
-                      <p className="text-sm uppercase tracking-[0.2em] text-white/40">
-                        {String(study.industry)}
-                      </p>
-                      <h3 className="mt-5 text-3xl font-semibold tracking-normal">
-                        {String(study.client_name)}
-                      </h3>
-                      <p className="mt-4 text-white/55">{String(study.solution)}</p>
-                    </article>
-                  ))}
-                </div>
-              )}
+              <CaseStudyShowcase caseStudies={caseStudies} compact />
             </div>
           </div>
         </section>
@@ -391,6 +363,7 @@ export default async function Home() {
                 <p className="mt-7 text-xl leading-8 text-white/60">
                   Share your requirements and we will contact you within 24 hours.
                 </p>
+                <SocialIconLinks className="mt-7" />
               </div>
             </Reveal>
             <Reveal delay={0.12}>
