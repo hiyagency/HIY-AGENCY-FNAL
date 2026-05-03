@@ -50,7 +50,7 @@ function cleanPayload(moduleKey: AdminModuleKey, payload: SavePayload) {
       continue;
     }
 
-    if (field.type === "tags" || field.type === "images") {
+    if (["tags", "images"].includes(field.type)) {
       if (Array.isArray(value)) {
         cleaned[key] = value.filter(Boolean);
       } else {

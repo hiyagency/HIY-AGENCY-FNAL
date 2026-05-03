@@ -67,7 +67,7 @@ export function AdminCrudPanel({
       Object.fromEntries(
         moduleConfig.fields.map((field) => {
           const value = row[field.name];
-          if (field.type === "tags" || field.type === "images") {
+          if (["tags", "images"].includes(field.type)) {
             return [field.name, Array.isArray(value) ? value.join(", ") : String(value ?? "")];
           }
           if (field.type === "boolean") {

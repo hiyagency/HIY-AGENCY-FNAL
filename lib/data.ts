@@ -8,7 +8,6 @@ import {
   services,
   teamMembers,
 } from "@/lib/content";
-import { getCloudinaryPosterUrl, getCloudinaryVideoUrl } from "@/lib/cloudinary";
 import { canReadSupabase, createSupabaseServerClient } from "@/lib/supabase/server";
 
 type SupabaseRow = Record<string, unknown>;
@@ -28,9 +27,6 @@ export type PublicCaseStudy = {
   result: string;
   industry: string;
   imageUrl: string | null;
-  videoUrl: string;
-  posterUrl: string;
-  hasVideo: boolean;
   href: string;
   ctaLabel: string;
   services: string[];
@@ -83,18 +79,7 @@ function normalizeCaseStudy(study: SupabaseRow): PublicCaseStudy {
   const services = Array.isArray(study.services_delivered)
     ? study.services_delivered.map(cleanText).filter(Boolean).slice(0, 4)
     : [];
-  const cloudinaryPublicId = cleanText(study.cloudinary_public_id);
-  const rawVideoUrl = cleanText(study.video_url);
-  const coverImage = cleanText(study.cover_image_url);
-  const videoUrl = getCloudinaryVideoUrl({
-    publicId: cloudinaryPublicId,
-    secureUrl: rawVideoUrl,
-  });
-  const posterUrl = getCloudinaryPosterUrl({
-    publicId: cloudinaryPublicId,
-    secureUrl: rawVideoUrl,
-    posterUrl: coverImage,
-  });
+  const coverImage = cleanText(study.cover_image_url) || cleanText(study.cover_image);
 
   return {
     id: cleanText(study.id) || `${clientName}-${title || service}`,
@@ -115,16 +100,33 @@ function normalizeCaseStudy(study: SupabaseRow): PublicCaseStudy {
       cleanText(study.short_summary) ||
       "A cleaner brand experience built to create trust and convert more conversations.",
     industry: cleanText(study.industry) || service,
-    imageUrl: coverImage || posterUrl || null,
-    videoUrl,
-    posterUrl,
-    hasVideo: Boolean(videoUrl),
-    href: cleanText(study.website_url) || "/contact",
+    imageUrl: coverImage || null,
+    href: cleanText(study.cta_link) || cleanText(study.website_url) || "/contact",
     ctaLabel:
       cleanText(study.cta_text) ||
-      (cleanText(study.website_url) ? "View project" : "Build My Case Study"),
+      (cleanText(study.cta_link) || cleanText(study.website_url)
+        ? "View Project"
+        : "Build My Case Study"),
     services,
   };
+}
+
+function dedupeCaseStudies(studies: PublicCaseStudy[]) {
+  const seen = new Set<string>();
+
+  return studies.filter((study) => {
+    const key = [
+      study.id,
+      study.title.toLowerCase(),
+      study.clientName.toLowerCase(),
+    ]
+      .filter(Boolean)
+      .join("|");
+
+    if (seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
 }
 
 async function readTable<T extends SupabaseRow>(
@@ -273,7 +275,7 @@ export async function getPublishedCaseStudies() {
       return [];
     }
 
-    return data.map((study) => normalizeCaseStudy(study as SupabaseRow));
+    return dedupeCaseStudies(data.map((study) => normalizeCaseStudy(study as SupabaseRow)));
   } catch {
     return [] as PublicCaseStudy[];
   }
