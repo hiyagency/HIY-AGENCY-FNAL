@@ -8,6 +8,7 @@ import {
   services,
   teamMembers,
 } from "@/lib/content";
+import { getCloudinaryPosterUrl, getCloudinaryVideoUrl } from "@/lib/cloudinary";
 import { canReadSupabase, createSupabaseServerClient } from "@/lib/supabase/server";
 
 type SupabaseRow = Record<string, unknown>;
@@ -27,6 +28,9 @@ export type PublicCaseStudy = {
   result: string;
   industry: string;
   imageUrl: string | null;
+  videoUrl: string;
+  posterUrl: string;
+  hasVideo: boolean;
   href: string;
   ctaLabel: string;
   services: string[];
@@ -79,6 +83,18 @@ function normalizeCaseStudy(study: SupabaseRow): PublicCaseStudy {
   const services = Array.isArray(study.services_delivered)
     ? study.services_delivered.map(cleanText).filter(Boolean).slice(0, 4)
     : [];
+  const cloudinaryPublicId = cleanText(study.cloudinary_public_id);
+  const rawVideoUrl = cleanText(study.video_url);
+  const coverImage = cleanText(study.cover_image_url);
+  const videoUrl = getCloudinaryVideoUrl({
+    publicId: cloudinaryPublicId,
+    secureUrl: rawVideoUrl,
+  });
+  const posterUrl = getCloudinaryPosterUrl({
+    publicId: cloudinaryPublicId,
+    secureUrl: rawVideoUrl,
+    posterUrl: coverImage,
+  });
 
   return {
     id: cleanText(study.id) || `${clientName}-${title || service}`,
@@ -95,12 +111,18 @@ function normalizeCaseStudy(study: SupabaseRow): PublicCaseStudy {
       "HIY Agency shaped the strategy, visual system, conversion flow, and launch-ready execution around the business goal.",
     result:
       resultText(study.results) ||
+      cleanText(study.result_metric) ||
       cleanText(study.short_summary) ||
       "A cleaner brand experience built to create trust and convert more conversations.",
     industry: cleanText(study.industry) || service,
-    imageUrl: cleanText(study.cover_image_url) || null,
+    imageUrl: coverImage || posterUrl || null,
+    videoUrl,
+    posterUrl,
+    hasVideo: Boolean(videoUrl),
     href: cleanText(study.website_url) || "/contact",
-    ctaLabel: cleanText(study.website_url) ? "View project" : "Build something similar",
+    ctaLabel:
+      cleanText(study.cta_text) ||
+      (cleanText(study.website_url) ? "View project" : "Build My Case Study"),
     services,
   };
 }

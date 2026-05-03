@@ -20,6 +20,9 @@ alter table case_studies add column if not exists title text;
 alter table case_studies add column if not exists category text;
 alter table case_studies add column if not exists short_summary text;
 alter table case_studies add column if not exists full_description text;
+alter table case_studies add column if not exists cloudinary_public_id text;
+alter table case_studies add column if not exists video_url text;
+alter table case_studies add column if not exists cta_text text;
 alter table case_studies add column if not exists display_order integer not null default 0;
 
 update case_studies

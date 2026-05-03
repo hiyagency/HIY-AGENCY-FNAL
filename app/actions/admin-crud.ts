@@ -63,7 +63,7 @@ function cleanPayload(moduleKey: AdminModuleKey, payload: SavePayload) {
     }
 
     if (moduleKey === "case_studies" && key === "results") {
-      cleaned[key] = { summary: String(value) };
+      cleaned[key] = String(value).trim() ? { summary: String(value).trim() } : {};
       continue;
     }
 

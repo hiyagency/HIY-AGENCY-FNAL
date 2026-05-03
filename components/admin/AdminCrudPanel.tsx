@@ -73,6 +73,10 @@ export function AdminCrudPanel({
           if (field.type === "boolean") {
             return [field.name, Boolean(value)];
           }
+          if (field.type === "textarea" && typeof value === "object" && value !== null) {
+            const record = value as Record<string, unknown>;
+            return [field.name, String(record.summary ?? record.result ?? JSON.stringify(value))];
+          }
           return [field.name, value ?? defaultValue(field)];
         }),
       ),

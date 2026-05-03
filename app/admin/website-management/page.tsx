@@ -135,6 +135,7 @@ export default async function WebsiteManagementPage() {
           { key: "title", label: "Title" },
           { key: "client_name", label: "Client" },
           { key: "category", label: "Category" },
+          { key: "cloudinary_public_id", label: "Cloudinary ID" },
           { key: "status", label: "Status" },
           { key: "featured", label: "Featured" },
           { key: "display_order", label: "Order" },
