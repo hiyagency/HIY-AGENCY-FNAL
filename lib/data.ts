@@ -74,8 +74,8 @@ function resultText(value: unknown) {
 }
 
 function normalizeCaseStudy(study: SupabaseRow): PublicCaseStudy {
-  const title = cleanText(study.title);
-  const clientName = cleanText(study.client_name);
+  const title = cleanText(study.title) || cleanText(study.name);
+  const clientName = cleanText(study.client_name) || cleanText(study.name);
   const service =
     cleanText(study.category) ||
     cleanText(study.project_type) ||
@@ -122,10 +122,12 @@ function normalizeCaseStudy(study: SupabaseRow): PublicCaseStudy {
     posterUrl,
     hasVideo: Boolean(videoUrl),
     useImages,
-    href: cleanText(study.website_url) || "/contact",
+    href: cleanText(study.cta_link) || cleanText(study.website_url) || "/contact",
     ctaLabel:
       cleanText(study.cta_text) ||
-      (cleanText(study.website_url) ? "View project" : "Build My Case Study"),
+      (cleanText(study.cta_link) || cleanText(study.website_url)
+        ? "View Project"
+        : "Build My Case Study"),
     services,
   };
 }

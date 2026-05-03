@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { ArrowUpRight, Play } from "lucide-react";
-import { motion, useReducedMotion } from "framer-motion";
 import type { PublicCaseStudy } from "@/lib/data";
 
 export function CaseStudyShowcase({
@@ -13,8 +12,6 @@ export function CaseStudyShowcase({
   caseStudies: PublicCaseStudy[];
   compact?: boolean;
 }) {
-  const prefersReducedMotion = useReducedMotion();
-
   if (caseStudies.length === 0) {
     return (
       <div className="grid min-h-80 place-items-center rounded-[2rem] border border-white/10 bg-[#0b0b0b] p-8 text-center">
@@ -28,83 +25,116 @@ export function CaseStudyShowcase({
     );
   }
 
+  const marqueeStudies = caseStudies.length > 1 ? [...caseStudies, ...caseStudies] : caseStudies;
+
   return (
-    <div className="grid gap-10">
-      {caseStudies.map((study, index) => (
-        <motion.article
-          className="grid gap-5 overflow-hidden rounded-[2rem] border border-white/10 bg-[#080808] p-4 sm:p-5 lg:grid-cols-[minmax(0,1.12fr)_minmax(340px,0.88fr)] lg:gap-6"
-          initial={{ opacity: 0, y: prefersReducedMotion ? 0 : 18 }}
-          key={study.id}
-          transition={{ duration: prefersReducedMotion ? 0 : 0.45, ease: "easeOut" }}
-          viewport={{ amount: 0.22, once: true }}
-          whileInView={{ opacity: 1, y: 0 }}
-        >
-          <div className="min-w-0">
-            <div className="mb-4 flex flex-wrap items-center gap-2 lg:hidden">
-              <span className="rounded-full border border-white/12 px-3 py-1 text-[0.68rem] uppercase tracking-[0.18em] text-white/48">
-                {study.service}
-              </span>
-              <span className="rounded-full bg-white px-3 py-1 text-[0.68rem] font-bold uppercase tracking-[0.18em] text-black">
-                {String(index + 1).padStart(2, "0")}
-              </span>
-            </div>
-            <h3 className="mb-5 text-[clamp(2rem,9vw,4rem)] font-black leading-[0.94] tracking-normal lg:hidden">
-              {study.title}
-            </h3>
-            <CaseStudyMedia study={study} compact={compact} />
-          </div>
+    <div className="case-study-strip -mx-4 overflow-hidden px-4 sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
+      <div className="case-study-track flex gap-5 overflow-x-auto pb-4 [scrollbar-width:none] motion-safe:lg:animate-[case-study-marquee_42s_linear_infinite] hover:lg:[animation-play-state:paused] [&::-webkit-scrollbar]:hidden">
+        {marqueeStudies.map((study, index) => (
+          <CaseStudyCard
+            compact={compact}
+            key={`${study.id}-${index}`}
+            ordinal={(index % caseStudies.length) + 1}
+            study={study}
+          />
+        ))}
+      </div>
 
-          <div className="min-w-0 lg:sticky lg:top-24 lg:self-start">
-            <div className="rounded-[1.5rem] border border-white/10 bg-black p-5 sm:p-6">
-              <div className="hidden flex-wrap items-center gap-2 lg:flex">
-                <span className="rounded-full border border-white/12 px-3 py-1 text-[0.68rem] uppercase tracking-[0.18em] text-white/48">
-                  {study.service}
-                </span>
-                <span className="rounded-full bg-white px-3 py-1 text-[0.68rem] font-bold uppercase tracking-[0.18em] text-black">
-                  {String(index + 1).padStart(2, "0")}
-                </span>
-              </div>
+      <style jsx>{`
+        @keyframes case-study-marquee {
+          from {
+            transform: translateX(0);
+          }
+          to {
+            transform: translateX(-50%);
+          }
+        }
 
-              <h3 className="mt-0 hidden text-[clamp(2.4rem,4.5vw,4.9rem)] font-black leading-[0.92] tracking-normal lg:block">
-                {study.title}
-              </h3>
-
-              <div className="mt-1 grid gap-4 lg:mt-7">
-                <DetailBlock label="Client" value={study.clientName} />
-                <DetailBlock label="Short description" value={study.problem} />
-                <DetailBlock label="Long description" value={study.solution} />
-                <DetailBlock label="Results / impact" value={study.result} strong />
-              </div>
-
-              {study.services.length > 0 ? (
-                <div className="mt-6 flex flex-wrap gap-2">
-                  {study.services.map((service) => (
-                    <span
-                      className="rounded-full border border-white/10 px-3 py-1 text-xs text-white/52"
-                      key={service}
-                    >
-                      {service}
-                    </span>
-                  ))}
-                </div>
-              ) : null}
-
-              <Link
-                className="mt-7 inline-flex min-h-12 w-full items-center justify-center gap-3 rounded-full bg-white px-5 py-3 text-center text-xs font-bold uppercase tracking-[0.16em] text-black transition hover:bg-[#d8d8d8] sm:w-auto"
-                href={study.href}
-              >
-                {study.ctaLabel}
-                <ArrowUpRight className="size-4" />
-              </Link>
-            </div>
-          </div>
-        </motion.article>
-      ))}
+        @media (max-width: 1023px) {
+          .case-study-track {
+            animation: none;
+            scroll-snap-type: x mandatory;
+          }
+        }
+      `}</style>
     </div>
   );
 }
 
-function CaseStudyMedia({ study, compact }: { study: PublicCaseStudy; compact: boolean }) {
+function CaseStudyCard({
+  study,
+  ordinal,
+  compact,
+}: {
+  study: PublicCaseStudy;
+  ordinal: number;
+  compact: boolean;
+}) {
+  const [expanded, setExpanded] = useState(false);
+
+  return (
+    <article
+      className={`case-study-card flex min-w-[86vw] max-w-[86vw] shrink-0 snap-center flex-col overflow-hidden rounded-[1.8rem] border border-white/10 bg-[#080808] p-4 sm:min-w-[520px] sm:max-w-[520px] sm:p-5 lg:min-w-[620px] lg:max-w-[620px] ${
+        compact ? "lg:min-h-[620px]" : "lg:min-h-[680px]"
+      }`}
+    >
+      <div className="flex min-w-0 flex-1 flex-col rounded-[1.4rem] border border-white/10 bg-black p-5">
+        <div className="flex flex-wrap items-center gap-2">
+          <span className="rounded-full border border-white/12 px-3 py-1 text-[0.68rem] uppercase tracking-[0.18em] text-white/48">
+            {study.service}
+          </span>
+          <span className="rounded-full bg-white px-3 py-1 text-[0.68rem] font-bold uppercase tracking-[0.18em] text-black">
+            {String(ordinal).padStart(2, "0")}
+          </span>
+        </div>
+
+        <p className="mt-6 text-xs uppercase tracking-[0.24em] text-white/34">
+          {study.clientName}
+        </p>
+        <h3 className="mt-3 text-[clamp(2rem,8vw,3.7rem)] font-black leading-[0.94] tracking-normal">
+          {study.title}
+        </h3>
+
+        <p className="mt-5 break-words text-base leading-7 text-white/58">{study.problem}</p>
+
+        {expanded ? (
+          <div className="mt-5 border-t border-white/10 pt-5">
+            <p className="text-xs uppercase tracking-[0.22em] text-white/34">Full case study</p>
+            <p className="mt-3 break-words leading-7 text-white/62">{study.solution}</p>
+            {study.result ? (
+              <p className="mt-4 rounded-[1rem] border border-white/10 bg-white/[0.04] p-4 text-sm font-semibold leading-6 text-white/78">
+                {study.result}
+              </p>
+            ) : null}
+          </div>
+        ) : null}
+
+        <div className="mt-6 flex flex-col gap-3 sm:flex-row">
+          <Link
+            className="inline-flex min-h-12 items-center justify-center gap-3 rounded-full bg-white px-5 py-3 text-center text-xs font-bold uppercase tracking-[0.16em] text-black transition hover:bg-[#d8d8d8]"
+            href={study.href}
+          >
+            {study.ctaLabel || "View Project"}
+            <ArrowUpRight className="size-4" />
+          </Link>
+          <button
+            className="inline-flex min-h-12 items-center justify-center rounded-full border border-white/15 px-5 py-3 text-center text-xs font-bold uppercase tracking-[0.16em] text-white/70 transition hover:border-white/40 hover:text-white"
+            onClick={() => setExpanded((current) => !current)}
+            type="button"
+          >
+            {expanded ? "Hide Full Case Study" : "View Full Case Study"}
+          </button>
+        </div>
+      </div>
+
+      <div className="mt-4">
+        <CaseStudyMedia study={study} />
+      </div>
+    </article>
+  );
+}
+
+function CaseStudyMedia({ study }: { study: PublicCaseStudy }) {
   const [shouldLoad, setShouldLoad] = useState(false);
   const frameRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -121,7 +151,7 @@ function CaseStudyMedia({ study, compact }: { study: PublicCaseStudy; compact: b
           videoRef.current?.pause();
         }
       },
-      { rootMargin: "520px 0px", threshold: 0.05 },
+      { rootMargin: "480px 0px", threshold: 0.05 },
     );
 
     observer.observe(frame);
@@ -131,9 +161,7 @@ function CaseStudyMedia({ study, compact }: { study: PublicCaseStudy; compact: b
   return (
     <div
       ref={frameRef}
-      className={`relative aspect-video w-full overflow-hidden rounded-[1.5rem] border border-white/10 bg-[#050505] ${
-        compact ? "lg:min-h-[420px]" : "lg:min-h-[500px]"
-      }`}
+      className="aspect-video w-full overflow-hidden rounded-[1.35rem] border border-white/10 bg-[#050505]"
     >
       {study.hasVideo && shouldLoad ? (
         <video
@@ -156,45 +184,14 @@ function CaseStudyMedia({ study, compact }: { study: PublicCaseStudy; compact: b
         />
       ) : (
         <div className="grid h-full place-items-center bg-[radial-gradient(circle_at_30%_20%,#1c1c1c,#050505_58%,#000)]">
-          <div className="text-center">
+          <div className="px-6 text-center">
             <Play className="mx-auto size-8 text-white/34" />
-            <p className="mt-5 text-5xl font-black tracking-normal text-white/80">
-              {study.clientName
-                .split(" ")
-                .map((part) => part[0])
-                .join("")
-                .slice(0, 3)}
-            </p>
-            <p className="mt-3 text-xs uppercase tracking-[0.24em] text-white/36">
-              Video case study
+            <p className="mt-4 text-sm uppercase tracking-[0.24em] text-white/38">
+              Case study media coming soon
             </p>
           </div>
         </div>
       )}
-
-    </div>
-  );
-}
-
-function DetailBlock({
-  label,
-  value,
-  strong,
-}: {
-  label: string;
-  value: string;
-  strong?: boolean;
-}) {
-  if (!value) return null;
-
-  return (
-    <div className="border-t border-white/10 pt-4">
-      <p className="text-[0.68rem] font-semibold uppercase tracking-[0.2em] text-white/32">
-        {label}
-      </p>
-      <p className={`mt-2 break-words leading-7 ${strong ? "text-white/84" : "text-white/58"}`}>
-        {value}
-      </p>
     </div>
   );
 }
