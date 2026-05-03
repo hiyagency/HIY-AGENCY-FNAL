@@ -305,16 +305,11 @@ export default async function Home() {
           <div className="mx-auto max-w-7xl">
             <Reveal>
               <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
-                <div>
-                  <h2 className="text-[clamp(3rem,7vw,7rem)] font-black leading-[0.9] tracking-normal">
-                    Real businesses. Real systems. Real growth stories.
-                  </h2>
-                </div>
                 <Link
                   className="inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.18em] text-white/60"
                   href="/case-studies"
                 >
-                  View work
+                  Browse all work
                   <ArrowUpRight className="size-4" />
                 </Link>
               </div>

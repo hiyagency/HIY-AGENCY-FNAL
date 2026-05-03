@@ -24,7 +24,7 @@ export default async function CaseStudiesPage() {
               Work
             </p>
             <h1 className="masked-title mt-6 max-w-5xl text-[clamp(3.5rem,8vw,8rem)] font-black leading-[0.9] tracking-normal">
-              Real businesses. Real systems. Real growth stories.
+              Selected Work
             </h1>
           </Reveal>
 
