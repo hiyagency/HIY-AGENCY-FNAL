@@ -36,14 +36,15 @@ export function MagneticButton({
       <Link
         className={
           variant === "solid"
-            ? "inline-flex min-h-12 items-center justify-center rounded-full bg-white px-7 text-sm font-semibold uppercase tracking-[0.16em] text-black transition hover:bg-[#d8d8d8]"
-            : "inline-flex min-h-12 items-center justify-center rounded-full border border-white/25 px-7 text-sm font-semibold uppercase tracking-[0.16em] text-white transition hover:border-white hover:bg-white hover:text-black"
+            ? "group relative inline-flex min-h-12 items-center justify-center overflow-hidden rounded-full bg-[#f5f7ff] px-7 text-sm font-bold uppercase tracking-[0.14em] text-[#050505] shadow-[0_0_50px_rgba(63,91,255,0.35)] transition hover:shadow-[0_0_70px_rgba(63,91,255,0.55)]"
+            : "group relative inline-flex min-h-12 items-center justify-center overflow-hidden rounded-full border border-[#7d97ff]/35 bg-[#07102a]/45 px-7 text-sm font-bold uppercase tracking-[0.14em] text-[#f5f7ff] backdrop-blur-xl transition hover:border-[#9eb0ff]/80 hover:bg-[#1126a4]/30"
         }
         href={href}
         onMouseLeave={handleLeave}
         onMouseMove={handleMove}
       >
-        {children}
+        <span className="absolute inset-0 translate-x-[-120%] bg-[linear-gradient(100deg,transparent,rgba(63,91,255,0.28),transparent)] transition duration-700 group-hover:translate-x-[120%]" />
+        <span className="relative">{children}</span>
       </Link>
     </motion.div>
   );

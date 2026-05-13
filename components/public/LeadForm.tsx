@@ -63,22 +63,22 @@ export function LeadForm() {
 
   return (
     <form
-      className="rounded-[2rem] border border-white/10 bg-white/[0.04] p-5 shadow-2xl sm:p-7"
+      className="glass-panel rounded-[2rem] p-5 sm:p-7"
       onSubmit={handleSubmit(onSubmit)}
     >
       <div className="grid gap-5 md:grid-cols-2">
         <Field label="Name" error={errors.name?.message}>
-          <Input className="bg-black/50 text-white" placeholder="Your name" {...register("name")} />
+          <Input className="border-[#7d97ff]/18 bg-[#050505]/62 text-white placeholder:text-[#c7d1ff]/32" placeholder="Your name" {...register("name")} />
         </Field>
         <Field label="Phone Number" error={errors.phone?.message}>
-          <Input className="bg-black/50 text-white" placeholder="9109167827" {...register("phone")} />
+          <Input className="border-[#7d97ff]/18 bg-[#050505]/62 text-white placeholder:text-[#c7d1ff]/32" placeholder="9109167827" {...register("phone")} />
         </Field>
       </div>
 
       <div className="mt-5 grid gap-5 md:grid-cols-2">
         <Field label="Email" error={errors.email?.message}>
           <Input
-            className="bg-black/50 text-white"
+            className="border-[#7d97ff]/18 bg-[#050505]/62 text-white placeholder:text-[#c7d1ff]/32"
             placeholder="you@company.com"
             type="email"
             {...register("email")}
@@ -86,7 +86,7 @@ export function LeadForm() {
         </Field>
         <Field label="Timeline in days" error={errors.timelineDays?.message}>
           <Input
-            className="bg-black/50 text-white"
+            className="border-[#7d97ff]/18 bg-[#050505]/62 text-white"
             min={1}
             type="number"
             {...register("timelineDays", { valueAsNumber: true })}
@@ -106,7 +106,7 @@ export function LeadForm() {
             }}
             value={workRequired}
           >
-            <SelectTrigger className="w-full bg-black/50 text-white">
+            <SelectTrigger className="w-full border-[#7d97ff]/18 bg-[#050505]/62 text-white">
               <SelectValue placeholder="Select work" />
             </SelectTrigger>
             <SelectContent>
@@ -131,7 +131,7 @@ export function LeadForm() {
             }}
             value={budget}
           >
-            <SelectTrigger className="w-full bg-black/50 text-white">
+            <SelectTrigger className="w-full border-[#7d97ff]/18 bg-[#050505]/62 text-white">
               <SelectValue placeholder="Select budget" />
             </SelectTrigger>
             <SelectContent>
@@ -149,7 +149,7 @@ export function LeadForm() {
 
       <Field className="mt-5" label="Message / Requirements" error={errors.message?.message}>
         <Textarea
-          className="min-h-32 bg-black/50 text-white"
+          className="min-h-32 border-[#7d97ff]/18 bg-[#050505]/62 text-white placeholder:text-[#c7d1ff]/32"
           placeholder="Tell us what you want to build, improve, launch, or automate."
           {...register("message")}
         />
@@ -159,15 +159,15 @@ export function LeadForm() {
         <div
           className={
             status.ok
-              ? "mt-5 rounded-2xl border border-white/20 bg-white px-4 py-3 text-sm font-medium text-black"
-              : "mt-5 rounded-2xl border border-white/20 bg-black px-4 py-3 text-sm text-white"
+              ? "mt-5 rounded-2xl border border-[#7d97ff]/25 bg-[#3f5bff]/18 px-4 py-3 text-sm font-medium text-white"
+              : "mt-5 rounded-2xl border border-[#7d97ff]/20 bg-[#050505]/70 px-4 py-3 text-sm text-white"
           }
         >
           {status.message}
         </div>
       ) : null}
 
-      <Button className="mt-6 w-full rounded-full" disabled={isPending} size="lg" type="submit">
+      <Button className="mt-6 h-12 w-full rounded-full bg-[#f5f7ff] font-bold uppercase tracking-[0.14em] text-[#050505] hover:shadow-[0_0_44px_rgba(63,91,255,0.48)]" disabled={isPending} size="lg" type="submit">
         {isPending ? <Loader2 className="animate-spin" /> : null}
         Tell us what you want to build
       </Button>
@@ -188,9 +188,9 @@ function Field({
 }) {
   return (
     <div className={className}>
-      <Label className="text-xs uppercase tracking-[0.2em] text-white/50">{label}</Label>
+      <Label className="text-xs uppercase tracking-[0.2em] text-[#9eb0ff]/62">{label}</Label>
       <div className="mt-2">{children}</div>
-      {error ? <p className="mt-2 text-xs text-white/60">{error}</p> : null}
+      {error ? <p className="mt-2 text-xs text-[#c7d1ff]/70">{error}</p> : null}
     </div>
   );
 }

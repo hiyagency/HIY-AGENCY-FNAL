@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { AmbientBackground } from "@/components/motion/AmbientBackground";
 import { Reveal } from "@/components/motion/Reveal";
 import { CaseStudyShowcase } from "@/components/public/CaseStudyShowcase";
 import { Footer } from "@/components/public/Footer";
@@ -8,7 +9,7 @@ import { getPublishedCaseStudies } from "@/lib/data";
 export const metadata: Metadata = {
   title: "Case Studies",
   description:
-    "Published HIY Agency case studies and growth systems for websites, ads, automation, and content.",
+    "Published HIY Agency case studies and growth systems for websites, ads, automation, AI systems, and content.",
 };
 
 export default async function CaseStudiesPage() {
@@ -16,15 +17,16 @@ export default async function CaseStudiesPage() {
 
   return (
     <>
+      <AmbientBackground />
       <PublicNav />
-      <main className="min-h-screen bg-black px-4 pb-24 pt-32 text-white sm:px-6 lg:px-8">
+      <main className="relative z-10 min-h-screen px-4 pb-24 pt-32 text-[#f5f7ff] sm:px-6 lg:px-8">
         <section className="mx-auto max-w-7xl">
           <Reveal>
-            <p className="text-xs font-semibold uppercase tracking-[0.35em] text-white/45">
+            <p className="text-xs font-semibold uppercase tracking-[0.35em] text-[#9eb0ff]/62">
               Work
             </p>
-            <h1 className="masked-title mt-6 max-w-5xl text-[clamp(3.5rem,8vw,8rem)] font-black leading-[0.9] tracking-normal">
-              Selected Work
+            <h1 className="masked-title font-heading mt-6 max-w-6xl text-[clamp(3.5rem,8vw,8rem)] font-black leading-[0.86] tracking-normal">
+              Selected systems, launches, and growth infrastructure.
             </h1>
           </Reveal>
 

@@ -20,7 +20,7 @@ export function SocialIconLinks({ className = "" }: { className?: string }) {
       {socialLinks.map(({ label, href, icon: Icon }) => (
         <Link
           aria-label={label}
-          className="group inline-flex size-12 items-center justify-center rounded-full border border-white/12 bg-white/[0.04] text-white/70 transition duration-500 hover:-translate-y-1 hover:border-white/38 hover:bg-white hover:text-black"
+          className="group inline-flex size-12 items-center justify-center rounded-full border border-[#7d97ff]/18 bg-[#07102a]/46 text-[#c7d1ff]/74 transition duration-500 hover:-translate-y-1 hover:border-[#9eb0ff]/70 hover:bg-[#f5f7ff] hover:text-[#050505] hover:shadow-[0_0_34px_rgba(63,91,255,0.35)]"
           href={href}
           key={label}
         >

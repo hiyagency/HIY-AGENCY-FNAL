@@ -43,21 +43,22 @@ export function Preloader() {
     <AnimatePresence>
       {visible ? (
         <motion.div
-          className="fixed inset-0 z-50 grid place-items-center bg-black text-white"
+          className="fixed inset-0 z-50 grid place-items-center overflow-hidden bg-[#050505] text-[#f5f7ff]"
           initial={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.5, ease: "easeOut" }}
         >
           <button
-            className="absolute right-5 top-5 rounded-full border border-white/20 px-4 py-2 text-xs uppercase tracking-[0.22em] text-white/70 transition hover:border-white/60 hover:text-white"
+            className="absolute right-5 top-5 rounded-full border border-[#7d97ff]/25 bg-[#07102a]/55 px-4 py-2 text-xs uppercase tracking-[0.22em] text-white/70 backdrop-blur transition hover:border-[#9eb0ff]/70 hover:text-white"
             onClick={skipIntro}
             type="button"
           >
             Skip
           </button>
-          <div className="text-center">
+          <div className="absolute -left-[12vw] top-[-18vh] h-[60vh] w-[70vw] bg-[radial-gradient(ellipse_at_center,rgba(36,59,255,0.56),transparent_70%)] blur-3xl" />
+          <div className="relative text-center">
             <motion.p
-              className="text-[clamp(4rem,14vw,12rem)] font-black leading-none tracking-normal"
+              className="blue-text font-heading text-[clamp(4rem,14vw,12rem)] font-black leading-none tracking-normal"
               initial={{ y: 40, opacity: 0, filter: "blur(12px)" }}
               animate={{ y: 0, opacity: 1, filter: "blur(0px)" }}
               transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1] }}
@@ -65,12 +66,12 @@ export function Preloader() {
               HIY
             </motion.p>
             <motion.p
-              className="mt-5 text-sm uppercase tracking-[0.45em] text-white/60"
+              className="mt-5 text-sm uppercase tracking-[0.45em] text-[#9eb0ff]/80"
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.55, duration: 0.6 }}
             >
-              High Impact for You.
+              Infrastructure for high-impact growth.
             </motion.p>
           </div>
         </motion.div>
