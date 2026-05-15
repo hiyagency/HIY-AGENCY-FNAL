@@ -21,7 +21,7 @@ export function HeroVisual() {
   return (
     <div ref={ref} className="relative mx-auto w-full max-w-[620px] perspective-dramatic">
       <motion.div
-        className="absolute -inset-10 bg-[radial-gradient(ellipse_at_center,rgba(63,91,255,0.34),transparent_68%)] blur-3xl"
+        className="absolute -inset-4 bg-[radial-gradient(ellipse_at_center,rgba(63,91,255,0.34),transparent_68%)] blur-3xl sm:-inset-10"
         animate={reducedMotion ? undefined : { opacity: [0.5, 0.9, 0.55], scale: [0.96, 1.04, 0.96] }}
         transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
       />
@@ -40,7 +40,7 @@ export function HeroVisual() {
       </motion.div>
 
       <motion.div
-        className="relative overflow-hidden rounded-[2rem] border border-[#7d97ff]/20 bg-[#05070d]/84 p-4 shadow-[0_42px_140px_rgba(0,16,124,0.38)] backdrop-blur-xl"
+        className="relative hidden overflow-hidden rounded-[2rem] border border-[#7d97ff]/20 bg-[#05070d]/84 p-4 shadow-[0_42px_140px_rgba(0,16,124,0.38)] backdrop-blur-xl sm:block"
         style={reducedMotion ? undefined : { y, rotateZ: rotate }}
         animate={reducedMotion ? undefined : { rotateX: [0, 2, 0], rotateY: [0, -4, 0] }}
         transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}

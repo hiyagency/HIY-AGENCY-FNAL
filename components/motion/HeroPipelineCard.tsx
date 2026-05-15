@@ -15,7 +15,7 @@ export function HeroPipelineCard() {
 
   return (
     <motion.div
-      className="absolute -right-1 bottom-6 z-20 w-[min(92vw,280px)] rounded-2xl border border-[#7d97ff]/22 bg-[#07102a]/88 p-4 shadow-[0_20px_70px_rgba(36,59,255,0.32)] backdrop-blur-2xl sm:-right-4 sm:bottom-8"
+      className="relative z-20 mt-6 w-full rounded-2xl border border-[#7d97ff]/22 bg-[#07102a]/88 p-4 shadow-[0_20px_70px_rgba(36,59,255,0.32)] backdrop-blur-2xl sm:absolute sm:-right-4 sm:bottom-8 sm:mt-0 sm:w-[min(92vw,280px)]"
       animate={reducedMotion ? undefined : { y: [0, -8, 0] }}
       transition={{ duration: 5.5, repeat: Infinity, ease: "easeInOut" }}
     >

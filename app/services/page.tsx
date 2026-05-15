@@ -20,23 +20,23 @@ export default async function ServicesPage() {
     <>
       <AmbientBackground />
       <PublicNav />
-      <main className="relative z-10 px-4 pb-24 pt-32 text-[#f5f7ff] sm:px-6 lg:px-8">
+      <main className="relative z-10 px-4 pb-16 pt-28 text-[#f5f7ff] sm:px-6 sm:pb-24 sm:pt-32 lg:px-8">
         <section className="mx-auto max-w-7xl">
           <Reveal>
             <p className="text-xs font-semibold uppercase tracking-[0.35em] text-[#9eb0ff]/62">
               Services
             </p>
-            <h1 className="masked-title font-heading mt-6 max-w-6xl text-[clamp(3.5rem,8vw,8rem)] font-black leading-[0.86] tracking-normal">
+            <h1 className="masked-title font-heading mt-6 max-w-6xl text-[clamp(2.55rem,11vw,3.6rem)] font-black leading-[0.9] tracking-normal sm:text-[clamp(3.5rem,8vw,8rem)] sm:leading-[0.86]">
               Premium execution systems for brands that need more than a website.
             </h1>
           </Reveal>
-          <div className="mt-16 grid gap-6">
+          <div className="mt-10 grid gap-5 sm:mt-16 sm:gap-6">
             {services.map((service, index) => {
               const Icon = service.icon;
               return (
                 <Reveal delay={0.04 * (index % 4)} key={service.slug}>
                   <article
-                    className="group relative grid gap-8 overflow-hidden rounded-[2rem] border border-[#7d97ff]/16 bg-[#05070d]/74 p-6 shadow-[0_30px_110px_rgba(0,12,90,0.22)] transition duration-500 hover:border-[#7d97ff]/48 lg:grid-cols-[0.7fr_1.3fr]"
+                    className="group relative grid gap-6 overflow-hidden rounded-[2rem] border border-[#7d97ff]/16 bg-[#05070d]/74 p-5 shadow-[0_30px_110px_rgba(0,12,90,0.22)] transition duration-500 hover:border-[#7d97ff]/48 sm:gap-8 sm:p-6 lg:grid-cols-[0.7fr_1.3fr]"
                     id={service.slug}
                   >
                     <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_0%,rgba(63,91,255,0.24),transparent_42%)] opacity-0 transition duration-500 group-hover:opacity-100" />
@@ -47,10 +47,10 @@ export default async function ServicesPage() {
                       <p className="mt-10 text-xs uppercase tracking-[0.26em] text-[#9eb0ff]/50">
                         {String(index + 1).padStart(2, "0")}
                       </p>
-                      <h2 className="font-heading mt-4 text-4xl font-semibold leading-tight tracking-normal">
+                      <h2 className="font-heading mt-4 text-3xl font-semibold leading-tight tracking-normal sm:text-4xl">
                         {service.title}
                       </h2>
-                      <p className="mt-5 text-lg leading-8 text-[#c7d1ff]/60">
+                      <p className="mt-4 text-base leading-7 text-[#c7d1ff]/60 sm:mt-5 sm:text-lg sm:leading-8">
                         {service.description}
                       </p>
                       <Link

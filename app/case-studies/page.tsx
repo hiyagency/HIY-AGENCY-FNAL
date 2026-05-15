@@ -19,18 +19,18 @@ export default async function CaseStudiesPage() {
     <>
       <AmbientBackground />
       <PublicNav />
-      <main className="relative z-10 min-h-screen px-4 pb-24 pt-32 text-[#f5f7ff] sm:px-6 lg:px-8">
+      <main className="relative z-10 min-h-screen px-4 pb-16 pt-28 text-[#f5f7ff] sm:px-6 sm:pb-24 sm:pt-32 lg:px-8">
         <section className="mx-auto max-w-7xl">
           <Reveal>
             <p className="text-xs font-semibold uppercase tracking-[0.35em] text-[#9eb0ff]/62">
               Work
             </p>
-            <h1 className="masked-title font-heading mt-6 max-w-6xl text-[clamp(3.5rem,8vw,8rem)] font-black leading-[0.86] tracking-normal">
+            <h1 className="masked-title font-heading mt-6 max-w-6xl text-[clamp(2.55rem,11vw,3.6rem)] font-black leading-[0.9] tracking-normal sm:text-[clamp(3.5rem,8vw,8rem)] sm:leading-[0.86]">
               Selected systems, launches, and growth infrastructure.
             </h1>
           </Reveal>
 
-          <div className="mt-16">
+          <div className="mt-10 sm:mt-16">
             <CaseStudyShowcase caseStudies={caseStudies} />
           </div>
         </section>

@@ -59,7 +59,7 @@ export default async function Home() {
       <AmbientBackground />
       <PublicNav />
       <main className="relative z-10 overflow-hidden text-[#f5f7ff]">
-        <section className="noise-layer relative min-h-screen px-4 pb-20 pt-32 sm:px-6 lg:px-8">
+        <section className="noise-layer relative min-h-screen px-4 pb-14 pt-28 sm:px-6 sm:pb-20 sm:pt-32 lg:px-8">
           <div className="absolute left-1/2 top-28 h-px w-[72vw] -translate-x-1/2 bg-[linear-gradient(90deg,transparent,rgba(63,91,255,0.8),transparent)]" />
           <div className="relative mx-auto grid max-w-7xl items-center gap-12 lg:grid-cols-[1.03fr_0.97fr]">
             <Reveal className="min-w-0">
@@ -68,28 +68,28 @@ export default async function Home() {
                   <Sparkles className="size-4" />
                   Premium Digital Infrastructure
                 </div>
-                <h1 className="masked-title font-heading mt-7 max-w-6xl break-words text-[clamp(3.6rem,7vw,7.4rem)] font-black leading-[0.92] tracking-normal">
+                <h1 className="masked-title font-heading mt-6 max-w-6xl break-words text-[clamp(2.55rem,11vw,3.6rem)] font-black leading-[0.9] tracking-normal sm:mt-7 sm:text-[clamp(3.6rem,7vw,7.4rem)] sm:leading-[0.92]">
                   We engineer growth systems that feel expensive before they convert.
                 </h1>
-                <p className="mt-7 max-w-2xl text-lg leading-8 text-[#c7d1ff]/70 sm:text-xl">
+                <p className="mt-6 max-w-2xl text-base leading-7 text-[#c7d1ff]/70 sm:mt-7 sm:text-xl sm:leading-8">
                   HIY Agency builds elite websites, AI experiences, automation stacks,
                   content engines, and paid growth systems for businesses that need a
                   sharper digital command layer.
                 </p>
-                <div className="mt-9 flex flex-col gap-3 sm:flex-row">
+                <div className="mt-7 flex flex-col gap-3 sm:mt-9 sm:flex-row">
                   <MagneticButton href="/contact">Start Your Project</MagneticButton>
                   <MagneticButton href="/case-studies" variant="outline">
                     View Systems
                   </MagneticButton>
                 </div>
-                <div className="mt-9 grid gap-3 sm:grid-cols-3">
+                <div className="mt-7 grid gap-2 sm:mt-9 sm:grid-cols-3 sm:gap-3">
                   {heroStats.map(([title, text]) => (
                     <div
-                      className="rounded-2xl border border-[#7d97ff]/16 bg-[#07102a]/36 p-4 backdrop-blur"
+                      className="rounded-2xl border border-[#7d97ff]/16 bg-[#07102a]/36 p-3 backdrop-blur sm:p-4"
                       key={title}
                     >
-                      <p className="font-heading text-xl font-semibold text-white">{title}</p>
-                      <p className="mt-2 text-sm leading-6 text-[#c7d1ff]/56">{text}</p>
+                      <p className="font-heading text-lg font-semibold text-white sm:text-xl">{title}</p>
+                      <p className="mt-1 text-xs leading-5 text-[#c7d1ff]/56 sm:mt-2 sm:text-sm sm:leading-6">{text}</p>
                     </div>
                   ))}
                 </div>
@@ -126,15 +126,15 @@ export default async function Home() {
 
         <ShippedProjectsMarquee projects={shippedNames} />
 
-        <section className="px-4 py-24 sm:px-6 lg:px-8" id="about">
+        <section className="px-4 py-16 sm:px-6 sm:py-24 lg:px-8" id="about">
           <div className="mx-auto max-w-7xl">
             <Reveal>
               <div className="grid gap-10 lg:grid-cols-[0.94fr_1.06fr]">
-                <h2 className="font-heading blue-text text-[clamp(2.7rem,6vw,6rem)] font-black leading-[0.88] tracking-normal">
+                <h2 className="font-heading blue-text text-[clamp(2.35rem,10vw,4rem)] font-black leading-[0.9] tracking-normal sm:text-[clamp(2.7rem,6vw,6rem)] sm:leading-[0.88]">
                   A growth agency for companies that need infrastructure, not decoration.
                 </h2>
                 <div className="flex flex-col justify-end">
-                  <p className="text-xl leading-8 text-[#c7d1ff]/68">
+                  <p className="text-base leading-7 text-[#c7d1ff]/68 sm:text-xl sm:leading-8">
                     The new HIY identity is built around one idea: every public touchpoint
                     should connect to a real operating system. Positioning, interface,
                     creative, tracking, automation, and acquisition should feel like one
@@ -143,7 +143,7 @@ export default async function Home() {
                 </div>
               </div>
             </Reveal>
-            <div className="mt-14 grid gap-4 md:grid-cols-3">
+            <div className="mt-10 grid gap-4 sm:mt-14 md:grid-cols-3">
               {positioningCards.map((card, index) => {
                 const Icon = card.icon;
                 return (
@@ -165,11 +165,11 @@ export default async function Home() {
           </div>
         </section>
 
-        <section className="px-4 py-24 sm:px-6 lg:px-8" id="services">
+        <section className="px-4 py-16 sm:px-6 sm:py-24 lg:px-8" id="services">
           <div className="mx-auto max-w-7xl">
             <Reveal>
               <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
-                <h2 className="font-heading max-w-4xl text-[clamp(2.8rem,7vw,6.8rem)] font-black leading-[0.88] tracking-normal">
+                <h2 className="font-heading max-w-4xl text-[clamp(2.4rem,10vw,4rem)] font-black leading-[0.9] tracking-normal sm:text-[clamp(2.8rem,7vw,6.8rem)] sm:leading-[0.88]">
                   Websites, AI, content, ads, and systems built as one command layer.
                 </h2>
                 <Link
@@ -181,12 +181,12 @@ export default async function Home() {
                 </Link>
               </div>
             </Reveal>
-            <div className="mt-14 grid gap-5 lg:grid-cols-3">
+            <div className="mt-10 grid gap-5 sm:mt-14 lg:grid-cols-3">
               {services.map((service, index) => {
                 const Icon = service.icon;
                 return (
                   <Reveal delay={(index % 3) * 0.06} key={service.slug}>
-                    <article className="group relative flex h-full min-h-[500px] flex-col overflow-hidden rounded-[1.7rem] border border-[#7d97ff]/16 bg-[#05070d]/72 p-6 transition duration-500 hover:-translate-y-2 hover:border-[#7d97ff]/50 hover:shadow-[0_30px_110px_rgba(36,59,255,0.25)]">
+                    <article className="group relative flex h-full min-h-[420px] flex-col overflow-hidden rounded-[1.7rem] border border-[#7d97ff]/16 bg-[#05070d]/72 p-5 transition duration-500 hover:-translate-y-2 hover:border-[#7d97ff]/50 hover:shadow-[0_30px_110px_rgba(36,59,255,0.25)] sm:min-h-[500px] sm:p-6">
                       <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_0%,rgba(63,91,255,0.22),transparent_38%)] opacity-0 transition duration-500 group-hover:opacity-100" />
                       <div className="relative flex items-start justify-between gap-4">
                         <span className="grid size-12 place-items-center rounded-2xl border border-[#7d97ff]/18 bg-[#3f5bff]/12">
@@ -232,7 +232,7 @@ export default async function Home() {
           </div>
         </section>
 
-        <section className="px-4 py-24 sm:px-6 lg:px-8" id="work">
+        <section className="px-4 py-16 sm:px-6 sm:py-24 lg:px-8" id="work">
           <div className="mx-auto max-w-7xl">
             <Reveal>
               <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
@@ -240,7 +240,7 @@ export default async function Home() {
                   <p className="text-xs font-semibold uppercase tracking-[0.35em] text-[#9eb0ff]/60">
                     Case Studies
                   </p>
-                  <h2 className="font-heading mt-5 max-w-4xl text-[clamp(3rem,7vw,7rem)] font-black leading-[0.86] tracking-normal">
+                  <h2 className="font-heading mt-5 max-w-4xl text-[clamp(2.45rem,10vw,4rem)] font-black leading-[0.9] tracking-normal sm:text-[clamp(3rem,7vw,7rem)] sm:leading-[0.86]">
                     Cinematic proof of systems built to move businesses.
                   </h2>
                 </div>
@@ -253,20 +253,20 @@ export default async function Home() {
                 </Link>
               </div>
             </Reveal>
-            <div className="mt-14">
+            <div className="mt-10 sm:mt-14">
               <CaseStudyShowcase caseStudies={caseStudies} compact />
             </div>
           </div>
         </section>
 
-        <section className="px-4 py-24 sm:px-6 lg:px-8">
+        <section className="px-4 py-16 sm:px-6 sm:py-24 lg:px-8">
           <div className="mx-auto max-w-7xl">
             <Reveal>
-              <h2 className="font-heading blue-text max-w-4xl text-[clamp(3rem,7vw,7rem)] font-black leading-[0.86] tracking-normal">
+              <h2 className="font-heading blue-text max-w-4xl text-[clamp(2.45rem,10vw,4rem)] font-black leading-[0.9] tracking-normal sm:text-[clamp(3rem,7vw,7rem)] sm:leading-[0.86]">
                 A precise process from signal to launch.
               </h2>
             </Reveal>
-            <div className="mt-14 grid gap-4 lg:grid-cols-6">
+            <div className="mt-10 grid gap-4 sm:mt-14 lg:grid-cols-6">
               {processSteps.map((step, index) => (
                 <Reveal delay={index * 0.05} key={step.title}>
                   <article className="relative min-h-64 rounded-[1.5rem] border border-[#7d97ff]/16 bg-[#07102a]/42 p-5">
@@ -285,15 +285,15 @@ export default async function Home() {
           </div>
         </section>
 
-        <section className="relative px-4 py-24 sm:px-6 lg:px-8" id="team">
+        <section className="relative px-4 py-16 sm:px-6 sm:py-24 lg:px-8" id="team">
           <div className="pointer-events-none absolute inset-x-0 top-20 h-72 bg-[radial-gradient(ellipse_at_center,rgba(63,91,255,0.16),transparent_68%)]" />
           <div className="mx-auto max-w-7xl">
             <Reveal>
               <div className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr]">
-                <h2 className="font-heading text-[clamp(2.8rem,7vw,6.6rem)] font-black leading-[0.86] tracking-normal">
+                <h2 className="font-heading text-[clamp(2.45rem,10vw,4rem)] font-black leading-[0.9] tracking-normal sm:text-[clamp(2.8rem,7vw,6.6rem)] sm:leading-[0.86]">
                   Built by operators who understand tech, media, and modern business speed.
                 </h2>
-                <p className="self-end text-xl leading-8 text-[#c7d1ff]/64">
+                <p className="self-end text-base leading-7 text-[#c7d1ff]/64 sm:text-xl sm:leading-8">
                   The team structure stays connected to the admin schema, so profiles
                   can still be managed from the backend while the public experience
                   moves into the new premium identity.
@@ -301,7 +301,7 @@ export default async function Home() {
               </div>
             </Reveal>
             <Reveal delay={0.08}>
-              <div className="mt-12 overflow-hidden rounded-[2rem] border border-[#7d97ff]/16 bg-[#05070d]/68 p-4 shadow-[0_28px_100px_rgba(36,59,255,0.16)]">
+              <div className="mt-10 overflow-hidden rounded-[2rem] border border-[#7d97ff]/16 bg-[#05070d]/68 p-4 shadow-[0_28px_100px_rgba(36,59,255,0.16)] sm:mt-12">
                 <div className="grid gap-3 sm:grid-cols-3">
                   {["Strategy", "Build", "Growth"].map((item, index) => (
                     <div
@@ -327,17 +327,17 @@ export default async function Home() {
           </div>
         </section>
 
-        <section className="px-4 py-24 sm:px-6 lg:px-8" id="why-hiy">
+        <section className="px-4 py-16 sm:px-6 sm:py-24 lg:px-8" id="why-hiy">
           <div className="mx-auto max-w-7xl">
             <Reveal>
               <p className="text-xs font-semibold uppercase tracking-[0.35em] text-[#9eb0ff]/60">
                 Why HIY
               </p>
-              <h2 className="font-heading mt-5 max-w-4xl text-[clamp(3rem,7vw,7rem)] font-black leading-[0.86] tracking-normal">
+              <h2 className="font-heading mt-5 max-w-4xl text-[clamp(2.45rem,10vw,4rem)] font-black leading-[0.9] tracking-normal sm:text-[clamp(3rem,7vw,7rem)] sm:leading-[0.86]">
                 One partner for design, growth, and systems that actually ship.
               </h2>
             </Reveal>
-            <div className="mt-14 grid gap-4 md:grid-cols-2 lg:grid-cols-5">
+            <div className="mt-10 grid gap-4 sm:mt-14 md:grid-cols-2 lg:grid-cols-5">
               {whyHiy.map((item, index) => (
                 <Reveal delay={index * 0.05} key={item.title}>
                   <article className="group h-full rounded-[1.5rem] border border-[#7d97ff]/16 bg-[#05070d]/70 p-5 transition duration-500 hover:-translate-y-1.5 hover:border-[#7d97ff]/48 hover:bg-[#10246d]/28 hover:shadow-[0_22px_70px_rgba(36,59,255,0.2)]">
@@ -355,15 +355,15 @@ export default async function Home() {
           </div>
         </section>
 
-        <section className="relative px-4 py-24 sm:px-6 lg:px-8">
+        <section className="relative px-4 py-16 sm:px-6 sm:py-24 lg:px-8">
           <div className="pointer-events-none absolute inset-x-0 top-1/4 h-96 bg-[radial-gradient(ellipse_at_center,rgba(63,91,255,0.13),transparent_70%)]" />
           <div className="mx-auto max-w-7xl">
             <Reveal>
-              <h2 className="font-heading max-w-4xl text-[clamp(3rem,7vw,7rem)] font-black leading-[0.86] tracking-normal">
+              <h2 className="font-heading max-w-4xl text-[clamp(2.45rem,10vw,4rem)] font-black leading-[0.9] tracking-normal sm:text-[clamp(3rem,7vw,7rem)] sm:leading-[0.86]">
                 What clients say after launch.
               </h2>
             </Reveal>
-            <div className="relative mt-14 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+            <div className="relative mt-10 grid gap-5 sm:mt-14 md:grid-cols-2 xl:grid-cols-3">
               {testimonials.map((testimonial, index) => (
                 <Reveal delay={index * 0.06} key={testimonial.quote}>
                   <figure className="glass-panel group h-full rounded-[2rem] p-7 transition duration-700 hover:-translate-y-2 hover:border-[#7d97ff]/42 hover:shadow-[0_28px_100px_rgba(36,59,255,0.22)]">
@@ -384,17 +384,17 @@ export default async function Home() {
           </div>
         </section>
 
-        <section className="px-4 py-24 sm:px-6 lg:px-8" id="contact">
+        <section className="px-4 py-16 sm:px-6 sm:py-24 lg:px-8" id="contact">
           <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[0.8fr_1.2fr]">
             <Reveal>
-              <div className="sticky top-28">
+              <div className="lg:sticky lg:top-28">
                 <p className="text-sm uppercase tracking-[0.3em] text-[#9eb0ff]/60">
                   Start Project
                 </p>
-                <h2 className="font-heading mt-5 text-[clamp(3rem,7vw,6.8rem)] font-black leading-[0.86] tracking-normal">
+                <h2 className="font-heading mt-5 text-[clamp(2.45rem,10vw,4rem)] font-black leading-[0.9] tracking-normal sm:text-[clamp(3rem,7vw,6.8rem)] sm:leading-[0.86]">
                   Tell us what system you want to build.
                 </h2>
-                <p className="mt-7 text-xl leading-8 text-[#c7d1ff]/62">
+                <p className="mt-6 text-base leading-7 text-[#c7d1ff]/62 sm:mt-7 sm:text-xl sm:leading-8">
                   Share your requirements and we will contact you within 24 hours.
                 </p>
                 <div className="mt-7 flex flex-wrap gap-2">
@@ -416,7 +416,7 @@ export default async function Home() {
           </div>
         </section>
 
-        <section className="px-4 pb-28 pt-10 sm:px-6 lg:px-8">
+        <section className="px-4 pb-20 pt-6 sm:px-6 sm:pb-28 sm:pt-10 lg:px-8">
           <div className="glass-panel mx-auto grid max-w-7xl gap-10 rounded-[2rem] p-7 lg:grid-cols-[1fr_0.8fr] lg:p-10">
             <Reveal>
               <div>
@@ -424,10 +424,10 @@ export default async function Home() {
                   <Zap className="size-4" />
                   Build the next layer
                 </div>
-                <h2 className="font-heading mt-6 text-[clamp(3rem,8vw,7rem)] font-black leading-[0.86] tracking-normal">
+                <h2 className="font-heading mt-6 text-[clamp(2.45rem,10vw,4rem)] font-black leading-[0.9] tracking-normal sm:text-[clamp(3rem,8vw,7rem)] sm:leading-[0.86]">
                   Ready to create something that looks and works world-class?
                 </h2>
-                <p className="mt-7 max-w-3xl text-xl leading-8 text-[#c7d1ff]/62">
+                <p className="mt-6 max-w-3xl text-base leading-7 text-[#c7d1ff]/62 sm:mt-7 sm:text-xl sm:leading-8">
                   Website, campaign, video system, automation, or complete growth
                   package - HIY Agency can shape the premium system behind it.
                 </p>

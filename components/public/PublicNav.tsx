@@ -1,8 +1,9 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import {
   InstagramIcon,
   LinkedinIcon,
@@ -11,12 +12,6 @@ import {
 } from "@/components/public/SocialIcons";
 import { contactInfo } from "@/lib/content";
 import { Button } from "@/components/ui/button";
-import {
-  Sheet,
-  SheetContent,
-  SheetTitle,
-  SheetTrigger,
-} from "@/components/ui/sheet";
 import { cn } from "@/lib/utils";
 
 const navItems = [
@@ -29,6 +24,7 @@ const navItems = [
 
 const socialClass =
   "inline-flex size-10 items-center justify-center rounded-full border border-[#7d97ff]/20 bg-[#07102a]/55 text-[#c7d1ff]/75 transition hover:-translate-y-0.5 hover:border-[#9eb0ff]/65 hover:bg-[#f5f7ff] hover:text-[#050505] hover:shadow-[0_0_28px_rgba(63,91,255,0.28)]";
+const mobileSocialClass = socialClass.replace("size-10", "size-11");
 
 const contactActions = [
   { label: "Call", href: contactInfo.call, icon: PhoneIcon },
@@ -39,6 +35,7 @@ const contactActions = [
 
 export function PublicNav() {
   const pathname = usePathname();
+  const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
     <header className="fixed left-0 right-0 top-0 z-40 border-b border-[#7d97ff]/15 bg-[#05070d]/62 backdrop-blur-2xl">
@@ -61,7 +58,7 @@ export function PublicNav() {
           </span>
         </Link>
 
-        <div className="hidden items-center gap-1 rounded-full border border-[#7d97ff]/18 bg-[#07102a]/50 p-1 shadow-[0_12px_60px_rgba(36,59,255,0.14)] backdrop-blur-xl md:flex">
+        <div className="hidden items-center gap-1 rounded-full border border-[#7d97ff]/18 bg-[#07102a]/50 p-1 shadow-[0_12px_60px_rgba(36,59,255,0.14)] backdrop-blur-xl lg:flex">
           {navItems.map((item) => (
             <Link
               className={cn(
@@ -76,7 +73,7 @@ export function PublicNav() {
           ))}
         </div>
 
-        <div className="hidden items-center gap-3 md:flex">
+        <div className="hidden items-center gap-3 lg:flex">
           <div className="flex items-center gap-1.5 rounded-full border border-[#7d97ff]/14 bg-[#05070d]/45 p-1">
             {contactActions.map(({ label, href, icon: Icon }) => (
               <Link
@@ -105,25 +102,53 @@ export function PublicNav() {
           </Link>
         </div>
 
-        <Sheet>
-          <SheetTrigger asChild>
-            <Button
-              className="border-[#7d97ff]/30 bg-[#f5f7ff] text-[#050505] md:hidden"
-              size="icon"
-              variant="outline"
-              aria-label="Open menu"
-            >
-              <Menu />
-            </Button>
-          </SheetTrigger>
-          <SheetContent className="border-[#7d97ff]/20 bg-[#05070d] text-white">
-            <SheetTitle className="text-left font-heading text-white">HIY AGENCY</SheetTitle>
-            <div className="mt-10 flex flex-col gap-3">
+        <Button
+          aria-controls="mobile-nav-panel"
+          aria-expanded={mobileOpen}
+          aria-label={mobileOpen ? "Close menu" : "Open menu"}
+          className="size-11 border-[#7d97ff]/30 bg-[#f5f7ff] text-[#050505] lg:hidden"
+          onClick={() => setMobileOpen((open) => !open)}
+          size="icon"
+          type="button"
+          variant="outline"
+        >
+          {mobileOpen ? <X /> : <Menu />}
+        </Button>
+      </nav>
+
+      {mobileOpen ? (
+        <div className="fixed inset-0 top-20 z-50 lg:hidden">
+          <button
+            aria-label="Close menu"
+            className="absolute inset-0 bg-[#050505]/68 backdrop-blur-sm"
+            onClick={() => setMobileOpen(false)}
+            type="button"
+          />
+          <div
+            className="absolute right-4 top-4 max-h-[calc(100dvh-7rem)] w-[min(calc(100vw-2rem),22rem)] overflow-y-auto rounded-[1.6rem] border border-[#7d97ff]/20 bg-[#05070d]/96 p-5 text-white shadow-[0_28px_100px_rgba(36,59,255,0.24)]"
+            id="mobile-nav-panel"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Mobile navigation"
+          >
+            <div className="flex items-center justify-between gap-4">
+              <p className="font-heading text-lg font-black tracking-normal text-white">HIY AGENCY</p>
+              <button
+                aria-label="Close menu"
+                className="grid size-11 place-items-center rounded-full border border-[#7d97ff]/20 bg-[#07102a]/70 text-[#f5f7ff]"
+                onClick={() => setMobileOpen(false)}
+                type="button"
+              >
+                <X className="size-4" />
+              </button>
+            </div>
+            <div className="mt-7 flex flex-col gap-3">
               {navItems.map((item) => (
                 <Link
                   className="rounded-2xl border border-[#7d97ff]/18 bg-[#07102a]/55 px-4 py-4 text-lg font-medium text-white/80"
                   href={item.href}
                   key={item.href}
+                  onClick={() => setMobileOpen(false)}
                 >
                   {item.label}
                 </Link>
@@ -132,9 +157,10 @@ export function PublicNav() {
                 {contactActions.map(({ label, href, icon: Icon }) => (
                   <Link
                     aria-label={label}
-                    className={socialClass}
+                    className={mobileSocialClass}
                     href={href}
                     key={label}
+                    onClick={() => setMobileOpen(false)}
                     rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
                     target={href.startsWith("http") ? "_blank" : undefined}
                   >
@@ -145,13 +171,14 @@ export function PublicNav() {
               <Link
                 className="mt-4 rounded-full bg-[#f5f7ff] px-5 py-4 text-center text-sm font-bold uppercase tracking-[0.18em] text-[#050505]"
                 href="/contact"
+                onClick={() => setMobileOpen(false)}
               >
                 Start Project
               </Link>
             </div>
-          </SheetContent>
-        </Sheet>
-      </nav>
+          </div>
+        </div>
+      ) : null}
     </header>
   );
 }

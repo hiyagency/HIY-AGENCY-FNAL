@@ -19,17 +19,17 @@ export default function ContactPage() {
     <>
       <AmbientBackground />
       <PublicNav />
-      <main className="relative z-10 px-4 pb-24 pt-32 text-[#f5f7ff] sm:px-6 lg:px-8">
+      <main className="relative z-10 px-4 pb-16 pt-28 text-[#f5f7ff] sm:px-6 sm:pb-24 sm:pt-32 lg:px-8">
         <section className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[0.75fr_1.25fr]">
           <Reveal>
-            <div className="sticky top-28">
+            <div className="lg:sticky lg:top-28">
               <p className="text-xs font-semibold uppercase tracking-[0.35em] text-[#9eb0ff]/62">
                 Contact
               </p>
-              <h1 className="masked-title font-heading mt-6 text-[clamp(3.5rem,8vw,8rem)] font-black leading-[0.86] tracking-normal">
+              <h1 className="masked-title font-heading mt-6 text-[clamp(2.55rem,11vw,3.6rem)] font-black leading-[0.9] tracking-normal sm:text-[clamp(3.5rem,8vw,8rem)] sm:leading-[0.86]">
                 Build the next layer of your digital presence.
               </h1>
-              <p className="mt-7 text-xl leading-8 text-[#c7d1ff]/62">
+              <p className="mt-6 text-base leading-7 text-[#c7d1ff]/62 sm:mt-7 sm:text-xl sm:leading-8">
                 Website, campaign, video system, automation setup, or complete
                 growth package - HIY Agency can shape it with premium execution.
               </p>
