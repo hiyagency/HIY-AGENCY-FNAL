@@ -81,7 +81,7 @@ export default async function WebsiteManagementPage() {
             <CardHeader>
               <CardTitle>Contact Info Management</CardTitle>
               <CardDescription>
-                Update phone, WhatsApp, email, Instagram, Facebook, and optional address.
+                Update phone, WhatsApp, email, Instagram, LinkedIn, Facebook, and optional address.
               </CardDescription>
             </CardHeader>
             <CardContent className="grid gap-4">
@@ -89,6 +89,7 @@ export default async function WebsiteManagementPage() {
               <Field label="WhatsApp" name="whatsapp" value={contactInfo.whatsapp} />
               <Field label="Email" name="email" value={contactInfo.email} />
               <Field label="Instagram" name="instagram" value={contactInfo.instagram} />
+              <Field label="LinkedIn" name="linkedin" value={contactInfo.linkedin} />
               <Field label="Facebook" name="facebook" value={contactInfo.facebook} />
               <Button className="rounded-full" type="submit">
                 Save contact info

@@ -5,6 +5,7 @@ import {
   InstagramIcon,
   LinkedinIcon,
   PhoneIcon,
+  WhatsAppIcon,
 } from "@/components/public/SocialIcons";
 import { cn } from "@/lib/utils";
 
@@ -25,8 +26,12 @@ export function ContactButtons({ className = "", layout = "grid" }: ContactButto
       )}
     >
       <Link className={cn(buttonClass, "bg-[#f5f7ff] text-[#050505] hover:bg-white")} href={contactInfo.whatsapp}>
+        <WhatsAppIcon className="size-4" />
+        WhatsApp
+      </Link>
+      <Link className={buttonClass} href={contactInfo.call}>
         <PhoneIcon className="size-4" />
-        WhatsApp / Call
+        Call
       </Link>
       <Link className={buttonClass} href={contactInfo.instagram} rel="noopener noreferrer" target="_blank">
         <InstagramIcon className="size-4" />

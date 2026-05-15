@@ -40,3 +40,20 @@ export function PhoneIcon({ className }: { className?: string }) {
     </svg>
   );
 }
+
+export function WhatsAppIcon({ className }: { className?: string }) {
+  return (
+    <svg aria-hidden="true" className={className} fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path
+        d="M5.3 18.7 6 15.9A7.5 7.5 0 1 1 8.1 18l-2.8.7Z"
+        stroke="currentColor"
+        strokeLinejoin="round"
+        strokeWidth="1.8"
+      />
+      <path
+        d="M9.2 8.8c.2-.5.5-.5.8-.5h.5c.2 0 .4.1.5.4l.6 1.4c.1.2.1.4-.1.6l-.4.5c.6 1 1.4 1.8 2.5 2.4l.5-.4c.2-.2.4-.2.6-.1l1.4.6c.3.1.4.3.4.6v.4c0 .4-.2.7-.5.8-.5.2-1 .3-1.5.3-2.7 0-6.1-3.1-6.1-6 0-.4.1-.8.3-1.2Z"
+        fill="currentColor"
+      />
+    </svg>
+  );
+}

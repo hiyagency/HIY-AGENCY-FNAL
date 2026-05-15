@@ -16,15 +16,14 @@ import { MagneticButton } from "@/components/motion/MagneticButton";
 import { Preloader } from "@/components/motion/Preloader";
 import { Reveal } from "@/components/motion/Reveal";
 import { CaseStudyShowcase } from "@/components/public/CaseStudyShowcase";
-import { ClientProofSection } from "@/components/public/ClientProofSection";
 import { ContactButtons } from "@/components/public/ContactButtons";
 import { Footer } from "@/components/public/Footer";
 import { LeadForm } from "@/components/public/LeadForm";
 import { PublicNav } from "@/components/public/PublicNav";
 import { ShippedProjectsMarquee } from "@/components/public/ShippedProjectsMarquee";
 import { SocialIconLinks } from "@/components/public/SocialIconLinks";
+import { TeamSweep } from "@/components/public/TeamSweep";
 import {
-  clientLogos,
   positioningCards,
   processSteps,
   testimonials,
@@ -127,8 +126,6 @@ export default async function Home() {
 
         <ShippedProjectsMarquee projects={shippedNames} />
 
-        <ClientProofSection clients={clientLogos} />
-
         <section className="px-4 py-24 sm:px-6 lg:px-8" id="about">
           <div className="mx-auto max-w-7xl">
             <Reveal>
@@ -151,12 +148,15 @@ export default async function Home() {
                 const Icon = card.icon;
                 return (
                   <Reveal delay={index * 0.08} key={card.title}>
-                    <article className="group h-full rounded-[1.6rem] border border-[#7d97ff]/16 bg-[#07102a]/42 p-6 transition duration-500 hover:-translate-y-1 hover:border-[#7d97ff]/45 hover:bg-[#10246d]/32 hover:shadow-[0_22px_80px_rgba(36,59,255,0.22)]">
-                      <Icon className="size-7 text-[#9eb0ff]" />
-                      <h3 className="font-heading mt-8 text-2xl font-semibold tracking-normal">
+                    <article className="group relative h-full overflow-hidden rounded-[1.6rem] border border-[#7d97ff]/16 bg-[#07102a]/42 p-6 transition duration-700 hover:-translate-y-2 hover:border-[#7d97ff]/45 hover:bg-[#10246d]/32 hover:shadow-[0_22px_80px_rgba(36,59,255,0.22)]">
+                      <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_0%,rgba(63,91,255,0.22),transparent_42%)] opacity-0 transition duration-700 group-hover:opacity-100" />
+                      <span className="relative grid size-11 place-items-center rounded-2xl border border-[#7d97ff]/18 bg-[#3f5bff]/10 transition duration-700 group-hover:scale-105 group-hover:bg-[#3f5bff]/18">
+                        <Icon className="size-6 text-[#9eb0ff]" />
+                      </span>
+                      <h3 className="font-heading relative mt-8 text-2xl font-semibold tracking-normal">
                         {card.title}
                       </h3>
-                      <p className="mt-4 leading-7 text-[#c7d1ff]/58">{card.text}</p>
+                      <p className="relative mt-4 leading-7 text-[#c7d1ff]/58">{card.text}</p>
                     </article>
                   </Reveal>
                 );
@@ -285,7 +285,8 @@ export default async function Home() {
           </div>
         </section>
 
-        <section className="px-4 py-24 sm:px-6 lg:px-8" id="team">
+        <section className="relative px-4 py-24 sm:px-6 lg:px-8" id="team">
+          <div className="pointer-events-none absolute inset-x-0 top-20 h-72 bg-[radial-gradient(ellipse_at_center,rgba(63,91,255,0.16),transparent_68%)]" />
           <div className="mx-auto max-w-7xl">
             <Reveal>
               <div className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr]">
@@ -299,42 +300,30 @@ export default async function Home() {
                 </p>
               </div>
             </Reveal>
-            <div className="mt-14 grid gap-5 md:grid-cols-2">
-              {teamMembers.map((member) => (
-                <Reveal key={member.name}>
-                  <article className="group grid gap-6 rounded-[2rem] border border-[#7d97ff]/16 bg-[#07102a]/40 p-6 transition duration-500 hover:border-[#7d97ff]/44 hover:bg-[#10246d]/30 md:grid-cols-[180px_1fr]">
-                    <div className="grid aspect-square place-items-center rounded-[1.3rem] border border-[#7d97ff]/18 bg-[radial-gradient(circle_at_30%_20%,rgba(63,91,255,0.56),#050505_66%)] text-white shadow-[0_0_60px_rgba(63,91,255,0.22)]">
-                      <span className="font-heading text-6xl font-black tracking-normal">
-                        {member.name
-                          .split(" ")
-                          .map((part: string) => part[0])
-                          .join("")}
-                      </span>
-                    </div>
-                    <div>
-                      <p className="text-sm uppercase tracking-[0.22em] text-[#9eb0ff]/55">
-                        {member.experience}
+            <Reveal delay={0.08}>
+              <div className="mt-12 overflow-hidden rounded-[2rem] border border-[#7d97ff]/16 bg-[#05070d]/68 p-4 shadow-[0_28px_100px_rgba(36,59,255,0.16)]">
+                <div className="grid gap-3 sm:grid-cols-3">
+                  {["Strategy", "Build", "Growth"].map((item, index) => (
+                    <div
+                      className="rounded-2xl border border-[#7d97ff]/14 bg-[#07102a]/46 p-4"
+                      key={item}
+                    >
+                      <p className="text-xs uppercase tracking-[0.24em] text-[#9eb0ff]/54">
+                        0{index + 1}
                       </p>
-                      <h3 className="font-heading mt-3 text-3xl font-semibold tracking-normal">
-                        {member.name}
-                      </h3>
-                      <p className="mt-1 text-lg text-[#c7d1ff]/62">{member.role}</p>
-                      <p className="mt-5 leading-7 text-[#c7d1ff]/60">{member.bio}</p>
-                      <div className="mt-6 flex flex-wrap gap-2">
-                        {member.tags.map((tag: string) => (
-                          <span
-                            className="rounded-full border border-[#7d97ff]/16 px-3 py-1 text-xs uppercase tracking-[0.14em] text-[#c7d1ff]/58"
-                            key={tag}
-                          >
-                            {tag}
-                          </span>
-                        ))}
+                      <div className="mt-5 h-1.5 overflow-hidden rounded-full bg-[#7d97ff]/10">
+                        <div
+                          className="h-full rounded-full bg-[linear-gradient(90deg,#3f5bff,#f5f7ff)]"
+                          style={{ width: `${70 + index * 10}%` }}
+                        />
                       </div>
+                      <p className="font-heading mt-4 text-xl font-semibold text-white">{item}</p>
                     </div>
-                  </article>
-                </Reveal>
-              ))}
-            </div>
+                  ))}
+                </div>
+              </div>
+            </Reveal>
+            <TeamSweep teamMembers={teamMembers} />
           </div>
         </section>
 
@@ -366,18 +355,21 @@ export default async function Home() {
           </div>
         </section>
 
-        <section className="px-4 py-24 sm:px-6 lg:px-8">
+        <section className="relative px-4 py-24 sm:px-6 lg:px-8">
+          <div className="pointer-events-none absolute inset-x-0 top-1/4 h-96 bg-[radial-gradient(ellipse_at_center,rgba(63,91,255,0.13),transparent_70%)]" />
           <div className="mx-auto max-w-7xl">
             <Reveal>
               <h2 className="font-heading max-w-4xl text-[clamp(3rem,7vw,7rem)] font-black leading-[0.86] tracking-normal">
                 What clients say after launch.
               </h2>
             </Reveal>
-            <div className="mt-14 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+            <div className="relative mt-14 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
               {testimonials.map((testimonial, index) => (
                 <Reveal delay={index * 0.06} key={testimonial.quote}>
-                  <figure className="glass-panel h-full rounded-[2rem] p-7">
-                    <Orbit className="size-8 text-[#9eb0ff]" />
+                  <figure className="glass-panel group h-full rounded-[2rem] p-7 transition duration-700 hover:-translate-y-2 hover:border-[#7d97ff]/42 hover:shadow-[0_28px_100px_rgba(36,59,255,0.22)]">
+                    <span className="grid size-12 place-items-center rounded-2xl border border-[#7d97ff]/16 bg-[#3f5bff]/10 transition duration-700 group-hover:scale-105">
+                      <Orbit className="size-7 text-[#9eb0ff]" />
+                    </span>
                     <blockquote className="font-heading mt-8 text-2xl font-semibold leading-tight sm:text-3xl">
                       &ldquo;{testimonial.quote}&rdquo;
                     </blockquote>

@@ -15,6 +15,7 @@ import {
 
 export const contactInfo = {
   phone: "9109167827",
+  call: "tel:9109167827",
   whatsapp: "https://wa.me/919109167827",
   instagram: "https://www.instagram.com/hiyagency.in",
   instagramHandle: "hiyagency.in",

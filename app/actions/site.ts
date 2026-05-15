@@ -33,6 +33,7 @@ export async function saveContactSettingsAction(formData: FormData) {
         whatsapp: formData.get("whatsapp"),
         email: formData.get("email"),
         instagram: formData.get("instagram"),
+        linkedin: formData.get("linkedin"),
         facebook: formData.get("facebook"),
       },
     },
