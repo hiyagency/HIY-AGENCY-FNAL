@@ -1,8 +1,10 @@
-﻿"use client";
+"use client";
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu } from "lucide-react";
+import { InstagramIcon, LinkedinIcon } from "@/components/public/SocialIcons";
+import { contactInfo } from "@/lib/content";
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
@@ -19,6 +21,9 @@ const navItems = [
   { href: "/team", label: "Team" },
   { href: "/contact", label: "Contact" },
 ];
+
+const socialClass =
+  "inline-flex size-10 items-center justify-center rounded-full border border-[#7d97ff]/20 bg-[#07102a]/55 text-[#c7d1ff]/75 transition hover:border-[#9eb0ff]/65 hover:bg-[#f5f7ff] hover:text-[#050505]";
 
 export function PublicNav() {
   const pathname = usePathname();
@@ -60,6 +65,14 @@ export function PublicNav() {
         </div>
 
         <div className="hidden items-center gap-3 md:flex">
+          <div className="flex items-center gap-2">
+            <Link aria-label="Instagram" className={socialClass} href={contactInfo.instagram} rel="noopener noreferrer" target="_blank">
+              <InstagramIcon className="size-4" />
+            </Link>
+            <Link aria-label="LinkedIn" className={socialClass} href={contactInfo.linkedin} rel="noopener noreferrer" target="_blank">
+              <LinkedinIcon className="size-4" />
+            </Link>
+          </div>
           <Link
             className="rounded-full border border-[#7d97ff]/20 px-5 py-2.5 text-sm font-semibold uppercase tracking-[0.14em] text-[#c7d1ff]/75 transition hover:border-[#9eb0ff]/70 hover:bg-[#0b1b63]/35 hover:text-white"
             href="/admin/login"
@@ -97,6 +110,14 @@ export function PublicNav() {
                   {item.label}
                 </Link>
               ))}
+              <div className="mt-2 flex gap-3">
+                <Link aria-label="Instagram" className={socialClass} href={contactInfo.instagram} rel="noopener noreferrer" target="_blank">
+                  <InstagramIcon className="size-4" />
+                </Link>
+                <Link aria-label="LinkedIn" className={socialClass} href={contactInfo.linkedin} rel="noopener noreferrer" target="_blank">
+                  <LinkedinIcon className="size-4" />
+                </Link>
+              </div>
               <Link
                 className="mt-4 rounded-full bg-[#f5f7ff] px-5 py-4 text-center text-sm font-bold uppercase tracking-[0.18em] text-[#050505]"
                 href="/contact"
@@ -110,4 +131,3 @@ export function PublicNav() {
     </header>
   );
 }
-

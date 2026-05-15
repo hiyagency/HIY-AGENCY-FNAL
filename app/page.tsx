@@ -16,20 +16,25 @@ import { MagneticButton } from "@/components/motion/MagneticButton";
 import { Preloader } from "@/components/motion/Preloader";
 import { Reveal } from "@/components/motion/Reveal";
 import { CaseStudyShowcase } from "@/components/public/CaseStudyShowcase";
+import { ClientProofSection } from "@/components/public/ClientProofSection";
+import { ContactButtons } from "@/components/public/ContactButtons";
 import { Footer } from "@/components/public/Footer";
 import { LeadForm } from "@/components/public/LeadForm";
 import { PublicNav } from "@/components/public/PublicNav";
+import { ShippedProjectsMarquee } from "@/components/public/ShippedProjectsMarquee";
 import { SocialIconLinks } from "@/components/public/SocialIconLinks";
 import {
-  contactInfo,
+  clientLogos,
   positioningCards,
   processSteps,
+  testimonials,
   trustChips,
   whyHiy,
 } from "@/lib/content";
 import {
   getPublishedCaseStudies,
   getPublishedServices,
+  getPublishedShippedProjects,
   getPublishedTeamMembers,
 } from "@/lib/data";
 
@@ -39,27 +44,15 @@ const heroStats = [
   ["Ops", "Dashboards, tracking, launch infrastructure"],
 ];
 
-const testimonials = [
-  {
-    quote:
-      "HIY feels like a technical growth team, not a vendor. Strategy, website, ads, and response systems finally moved together.",
-    name: "Founder",
-    role: "Local service brand",
-  },
-  {
-    quote:
-      "The execution was sharp, fast, and premium. Our online presence started feeling like the business we actually wanted to become.",
-    name: "Operator",
-    role: "Commerce business",
-  },
-];
-
 export default async function Home() {
-  const [services, teamMembers, caseStudies] = await Promise.all([
+  const [services, teamMembers, caseStudies, shippedProjects] = await Promise.all([
     getPublishedServices(),
     getPublishedTeamMembers(),
     getPublishedCaseStudies(),
+    getPublishedShippedProjects(),
   ]);
+
+  const shippedNames = shippedProjects.map((project) => project.client_name);
 
   return (
     <>
@@ -131,6 +124,10 @@ export default async function Home() {
             ))}
           </div>
         </section>
+
+        <ShippedProjectsMarquee projects={shippedNames} />
+
+        <ClientProofSection clients={clientLogos} />
 
         <section className="px-4 py-24 sm:px-6 lg:px-8" id="about">
           <div className="mx-auto max-w-7xl">
@@ -341,21 +338,24 @@ export default async function Home() {
           </div>
         </section>
 
-        <section className="px-4 py-24 sm:px-6 lg:px-8">
+        <section className="px-4 py-24 sm:px-6 lg:px-8" id="why-hiy">
           <div className="mx-auto max-w-7xl">
             <Reveal>
-              <h2 className="font-heading max-w-4xl text-[clamp(3rem,7vw,7rem)] font-black leading-[0.86] tracking-normal">
-                Why businesses choose HIY Agency.
+              <p className="text-xs font-semibold uppercase tracking-[0.35em] text-[#9eb0ff]/60">
+                Why HIY
+              </p>
+              <h2 className="font-heading mt-5 max-w-4xl text-[clamp(3rem,7vw,7rem)] font-black leading-[0.86] tracking-normal">
+                One partner for design, growth, and systems that actually ship.
               </h2>
             </Reveal>
             <div className="mt-14 grid gap-4 md:grid-cols-2 lg:grid-cols-5">
               {whyHiy.map((item, index) => (
                 <Reveal delay={index * 0.05} key={item.title}>
-                  <article className="h-full rounded-[1.5rem] border border-[#7d97ff]/16 bg-[#05070d]/70 p-5 transition duration-500 hover:-translate-y-1 hover:border-[#7d97ff]/44">
+                  <article className="group h-full rounded-[1.5rem] border border-[#7d97ff]/16 bg-[#05070d]/70 p-5 transition duration-500 hover:-translate-y-1.5 hover:border-[#7d97ff]/48 hover:bg-[#10246d]/28 hover:shadow-[0_22px_70px_rgba(36,59,255,0.2)]">
                     <p className="text-xs uppercase tracking-[0.24em] text-[#9eb0ff]/48">
                       {String(index + 1).padStart(2, "0")}
                     </p>
-                    <h3 className="font-heading mt-8 text-2xl font-semibold tracking-normal">
+                    <h3 className="font-heading mt-8 text-2xl font-semibold tracking-normal transition group-hover:text-white">
                       {item.title}
                     </h3>
                     <p className="mt-4 text-sm leading-6 text-[#c7d1ff]/56">{item.text}</p>
@@ -367,21 +367,28 @@ export default async function Home() {
         </section>
 
         <section className="px-4 py-24 sm:px-6 lg:px-8">
-          <div className="mx-auto grid max-w-7xl gap-5 lg:grid-cols-2">
-            {testimonials.map((testimonial, index) => (
-              <Reveal delay={index * 0.08} key={testimonial.quote}>
-                <figure className="glass-panel rounded-[2rem] p-7">
-                  <Orbit className="size-8 text-[#9eb0ff]" />
-                  <blockquote className="font-heading mt-8 text-3xl font-semibold leading-tight">
-                    &ldquo;{testimonial.quote}&rdquo;
-                  </blockquote>
-                  <figcaption className="mt-8 flex items-center gap-3 text-sm text-[#c7d1ff]/62">
-                    <ShieldCheck className="size-4 text-[#9eb0ff]" />
-                    {testimonial.name} / {testimonial.role}
-                  </figcaption>
-                </figure>
-              </Reveal>
-            ))}
+          <div className="mx-auto max-w-7xl">
+            <Reveal>
+              <h2 className="font-heading max-w-4xl text-[clamp(3rem,7vw,7rem)] font-black leading-[0.86] tracking-normal">
+                What clients say after launch.
+              </h2>
+            </Reveal>
+            <div className="mt-14 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+              {testimonials.map((testimonial, index) => (
+                <Reveal delay={index * 0.06} key={testimonial.quote}>
+                  <figure className="glass-panel h-full rounded-[2rem] p-7">
+                    <Orbit className="size-8 text-[#9eb0ff]" />
+                    <blockquote className="font-heading mt-8 text-2xl font-semibold leading-tight sm:text-3xl">
+                      &ldquo;{testimonial.quote}&rdquo;
+                    </blockquote>
+                    <figcaption className="mt-8 flex items-center gap-3 text-sm text-[#c7d1ff]/62">
+                      <ShieldCheck className="size-4 text-[#9eb0ff]" />
+                      {testimonial.name} / {testimonial.role}
+                    </figcaption>
+                  </figure>
+                </Reveal>
+              ))}
+            </div>
           </div>
         </section>
 
@@ -435,26 +442,7 @@ export default async function Home() {
               </div>
             </Reveal>
             <Reveal delay={0.12}>
-              <div className="grid gap-3 self-end">
-                <Link
-                  className="rounded-full bg-[#f5f7ff] px-7 py-4 text-center text-sm font-bold uppercase tracking-[0.18em] text-[#050505] transition hover:shadow-[0_0_44px_rgba(63,91,255,0.48)]"
-                  href={contactInfo.whatsapp}
-                >
-                  WhatsApp / Call: {contactInfo.phone}
-                </Link>
-                <Link
-                  className="rounded-full border border-[#7d97ff]/20 px-7 py-4 text-center text-sm font-bold uppercase tracking-[0.18em] text-[#f5f7ff]"
-                  href={contactInfo.instagram}
-                >
-                  Instagram: {contactInfo.instagramHandle}
-                </Link>
-                <Link
-                  className="rounded-full border border-[#7d97ff]/20 px-7 py-4 text-center text-sm font-bold uppercase tracking-[0.18em] text-[#f5f7ff]"
-                  href={contactInfo.facebook}
-                >
-                  Facebook
-                </Link>
-              </div>
+              <ContactButtons className="self-end" layout="grid" />
             </Reveal>
           </div>
         </section>

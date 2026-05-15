@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2 } from "lucide-react";
@@ -24,7 +24,7 @@ export function LeadForm() {
   const [isPending, startTransition] = useTransition();
   const [status, setStatus] = useState<{ ok: boolean; message: string } | null>(null);
   const [workRequired, setWorkRequired] = useState<LeadFormValues["workRequired"]>("Website");
-  const [budget, setBudget] = useState<LeadFormValues["budget"]>("₹25,000 - ₹50,000");
+  const [budget, setBudget] = useState<LeadFormValues["budget"]>("â‚¹25,000 - â‚¹50,000");
   const {
     register,
     handleSubmit,
@@ -35,7 +35,7 @@ export function LeadForm() {
     resolver: zodResolver(leadSchema),
     defaultValues: {
       workRequired: "Website",
-      budget: "₹25,000 - ₹50,000",
+      budget: "â‚¹25,000 - â‚¹50,000",
       timelineDays: 21,
     },
   });
@@ -47,13 +47,13 @@ export function LeadForm() {
       setStatus({ ok: result.ok, message: result.message });
       if (result.ok) {
         setWorkRequired("Website");
-        setBudget("₹25,000 - ₹50,000");
+        setBudget("â‚¹25,000 - â‚¹50,000");
         reset({
           name: "",
           phone: "",
           email: "",
           workRequired: "Website",
-          budget: "₹25,000 - ₹50,000",
+          budget: "â‚¹25,000 - â‚¹50,000",
           timelineDays: 21,
           message: "",
         });
@@ -194,3 +194,4 @@ function Field({
     </div>
   );
 }
+

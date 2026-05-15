@@ -1,4 +1,5 @@
 import {
+  defaultShippedProjects,
   sampleClients,
   sampleEmployees,
   sampleLeads,
@@ -257,6 +258,45 @@ export async function getPublishedTeamMembers() {
   }
 }
 
+export type ShippedProject = {
+  id?: string;
+  client_name: string;
+  display_order: number;
+};
+
+export async function getPublishedShippedProjects(): Promise<ShippedProject[]> {
+  const fallback = defaultShippedProjects.map((project, index) => ({
+    id: `fallback-${index}`,
+    client_name: project.client_name,
+    display_order: project.display_order,
+  }));
+
+  if (!canReadSupabase()) {
+    return fallback;
+  }
+
+  try {
+    const supabase = await createSupabaseServerClient();
+    const { data, error } = await supabase
+      .from("shipped_projects")
+      .select("id, client_name, display_order")
+      .eq("published", true)
+      .order("display_order", { ascending: true });
+
+    if (error || !data || data.length === 0) {
+      return fallback;
+    }
+
+    return data.map((row) => ({
+      id: cleanText(row.id) || undefined,
+      client_name: cleanText(row.client_name) || "Client",
+      display_order: numberValue(row.display_order),
+    }));
+  } catch {
+    return fallback;
+  }
+}
+
 export async function getPublishedCaseStudies() {
   if (!canReadSupabase()) {
     return [] as PublicCaseStudy[];
@@ -295,6 +335,7 @@ export async function getAdminSnapshot() {
     readAdminTable("services", [] as SupabaseRow[], "created_at", supabase),
     readAdminTable("case_studies", [] as SupabaseRow[], "created_at", supabase),
     readAdminTable("media_uploads", [] as SupabaseRow[], "created_at", supabase),
+    readAdminTable("shipped_projects", defaultShippedProjects as SupabaseRow[], "display_order", supabase),
   ]);
 
   const [
@@ -309,6 +350,7 @@ export async function getAdminSnapshot() {
     servicesRowsResult,
     caseStudiesResult,
     mediaUploadsResult,
+    shippedProjectsResult,
   ] = results;
 
   const leads = leadsResult.rows;
@@ -330,6 +372,7 @@ export async function getAdminSnapshot() {
   const servicesRows = servicesRowsResult.rows;
   const caseStudies = caseStudiesResult.rows;
   const mediaUploads = mediaUploadsResult.rows;
+  const shippedProjects = shippedProjectsResult.rows;
 
   const totalCollected = payments.reduce(
     (sum, payment) => sum + numberValue(payment.amount_paid),
@@ -372,6 +415,7 @@ export async function getAdminSnapshot() {
     services: servicesRows,
     caseStudies,
     mediaUploads,
+    shippedProjects,
     errors,
     usingDemoData: results.some((result) => result.usedFallback),
     charts: {

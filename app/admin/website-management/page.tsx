@@ -127,6 +127,17 @@ export default async function WebsiteManagementPage() {
         ]}
       />
       <AdminCrudPanel
+        moduleKey="shipped_projects"
+        rows={snapshot.shippedProjects}
+        title="Shipped Projects Marquee"
+        description="Manage flowing project names shown on the homepage marquee. Unpublished or empty data falls back to defaults."
+        columns={[
+          { key: "client_name", label: "Project name" },
+          { key: "display_order", label: "Order" },
+          { key: "published", label: "Published" },
+        ]}
+      />
+      <AdminCrudPanel
         moduleKey="case_studies"
         rows={snapshot.caseStudies}
         title="Case Study Management"

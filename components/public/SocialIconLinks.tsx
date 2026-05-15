@@ -1,11 +1,27 @@
 import Link from "next/link";
 import { contactInfo } from "@/lib/content";
+import {
+  FacebookIcon,
+  InstagramIcon,
+  LinkedinIcon,
+  PhoneIcon,
+} from "@/components/public/SocialIcons";
 
 const socialLinks = [
+  {
+    label: "WhatsApp / Call",
+    href: contactInfo.whatsapp,
+    icon: PhoneIcon,
+  },
   {
     label: "Instagram",
     href: contactInfo.instagram,
     icon: InstagramIcon,
+  },
+  {
+    label: "LinkedIn",
+    href: contactInfo.linkedin,
+    icon: LinkedinIcon,
   },
   {
     label: "Facebook",
@@ -23,43 +39,12 @@ export function SocialIconLinks({ className = "" }: { className?: string }) {
           className="group inline-flex size-12 items-center justify-center rounded-full border border-[#7d97ff]/18 bg-[#07102a]/46 text-[#c7d1ff]/74 transition duration-500 hover:-translate-y-1 hover:border-[#9eb0ff]/70 hover:bg-[#f5f7ff] hover:text-[#050505] hover:shadow-[0_0_34px_rgba(63,91,255,0.35)]"
           href={href}
           key={label}
+          rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
+          target={href.startsWith("http") ? "_blank" : undefined}
         >
           <Icon className="size-5 transition duration-500 group-hover:scale-105" />
         </Link>
       ))}
     </div>
-  );
-}
-
-function InstagramIcon({ className }: { className?: string }) {
-  return (
-    <svg
-      aria-hidden="true"
-      className={className}
-      fill="none"
-      viewBox="0 0 24 24"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <rect height="16" rx="5" stroke="currentColor" strokeWidth="1.8" width="16" x="4" y="4" />
-      <circle cx="12" cy="12" r="3.4" stroke="currentColor" strokeWidth="1.8" />
-      <circle cx="16.8" cy="7.2" fill="currentColor" r="1" />
-    </svg>
-  );
-}
-
-function FacebookIcon({ className }: { className?: string }) {
-  return (
-    <svg
-      aria-hidden="true"
-      className={className}
-      fill="none"
-      viewBox="0 0 24 24"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        d="M14 8.4h2V5.2c-.7-.1-1.5-.2-2.4-.2-2.4 0-4 1.5-4 4.2v2.3H7v3.6h2.6V21h3.7v-5.9h2.5l.4-3.6h-2.9V9.6c0-.8.2-1.2.7-1.2Z"
-        fill="currentColor"
-      />
-    </svg>
   );
 }

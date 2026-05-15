@@ -3,6 +3,7 @@
 import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import { Activity, Bot, CheckCircle2, DatabaseZap, MousePointer2, TrendingUp } from "lucide-react";
 import { useRef } from "react";
+import { HeroPipelineCard } from "@/components/motion/HeroPipelineCard";
 
 const metrics = [
   { label: "Leads routed", value: "128", delta: "+32%", icon: Activity },
@@ -106,6 +107,8 @@ export function HeroVisual() {
           </div>
         </div>
       </motion.div>
+
+      <HeroPipelineCard />
 
       <motion.div
         className="absolute -bottom-4 right-0 z-10 hidden rounded-3xl border border-[#7d97ff]/25 bg-[#f5f7ff] p-4 text-[#050505] shadow-[0_26px_90px_rgba(63,91,255,0.28)] md:block"

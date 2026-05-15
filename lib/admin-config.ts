@@ -32,6 +32,7 @@ export type AdminModuleKey =
   | "tasks"
   | "services"
   | "case_studies"
+  | "shipped_projects"
   | "website_images";
 
 export type AdminModuleConfig = {
@@ -253,6 +254,18 @@ export const adminModules = {
       { name: "status", label: "Status", type: "select", options: ["Draft", "Published"] },
       { name: "featured", label: "Featured", type: "boolean" },
       { name: "display_order", label: "Sort order", type: "number" },
+    ],
+  },
+  shipped_projects: {
+    key: "shipped_projects",
+    title: "Shipped Project",
+    table: "shipped_projects",
+    addLabel: "Add Shipped Project",
+    revalidatePaths: ["/", "/admin/website-management"],
+    fields: [
+      { name: "client_name", label: "Client / project name", type: "text", required: true },
+      { name: "display_order", label: "Display order", type: "number" },
+      { name: "published", label: "Published", type: "boolean" },
     ],
   },
   website_images: {

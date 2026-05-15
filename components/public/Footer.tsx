@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Sparkles } from "lucide-react";
-import { contactInfo } from "@/lib/content";
+import { ContactButtons } from "@/components/public/ContactButtons";
 
 export function Footer() {
   const year = new Date().getFullYear();
@@ -42,12 +42,10 @@ export function Footer() {
           <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[#9eb0ff]/55">
             Contact
           </p>
-          <div className="mt-5 grid gap-3 text-sm text-[#c7d1ff]/70">
-            <Link href={contactInfo.whatsapp}>WhatsApp / Call: {contactInfo.phone}</Link>
-            <Link href={contactInfo.instagram}>Instagram: {contactInfo.instagramHandle}</Link>
-            <Link href={contactInfo.facebook}>Facebook</Link>
-            <Link href="/contact">Start Project</Link>
-          </div>
+          <ContactButtons className="mt-5" layout="grid" />
+          <Link className="mt-4 inline-block text-sm text-[#9eb0ff]/70 hover:text-white" href="/contact">
+            Start Project
+          </Link>
         </div>
       </div>
       <div className="relative mx-auto mt-12 flex max-w-7xl flex-col gap-3 border-t border-[#7d97ff]/14 pt-6 text-xs uppercase tracking-[0.22em] text-[#9eb0ff]/45 md:flex-row md:items-center md:justify-between">
@@ -57,3 +55,4 @@ export function Footer() {
     </footer>
   );
 }
+

@@ -16,11 +16,65 @@ import {
 export const contactInfo = {
   phone: "9109167827",
   whatsapp: "https://wa.me/919109167827",
-  instagram: "https://instagram.com/hiyagency.in",
+  instagram: "https://www.instagram.com/hiyagency.in",
   instagramHandle: "hiyagency.in",
+  linkedin: "https://www.linkedin.com/company/hiyagency",
   facebook: "https://www.facebook.com/profile.php?id=61588912052640",
   email: "hello@hiyagency.in",
 };
+
+export const clientLogos = [
+  "Financial Investment Group",
+  "Sonam Creation",
+  "Desi Jayka",
+  "Kidzee",
+  "Kinetic Green",
+];
+
+export const defaultShippedProjects = clientLogos.map((client_name, index) => ({
+  client_name,
+  display_order: index + 1,
+  published: true,
+}));
+
+export const testimonials = [
+  {
+    quote:
+      "HIY rebuilt our website and lead flow so enquiries felt clearer from day one. The design finally matched the trust we wanted clients to feel.",
+    name: "Operations lead",
+    role: "Investment firm website",
+  },
+  {
+    quote:
+      "Our ecommerce store went from cluttered to clean. Product pages, checkout flow, and WhatsApp follow-up now feel like one system.",
+    name: "Founder",
+    role: "Ecommerce brand",
+  },
+  {
+    quote:
+      "They handled website, Meta ads, and enquiry routing together. We stopped juggling three vendors for one growth goal.",
+    name: "Director",
+    role: "Financial services",
+  },
+  {
+    quote:
+      "The school campaign creative and landing page worked as one story. Parents understood the offer faster and our team got better quality calls.",
+    name: "Coordinator",
+    role: "School / education campaign",
+  },
+  {
+    quote:
+      "For a local business, speed mattered. HIY launched a sharp site with clear CTAs and helped us look credible in our own city.",
+    name: "Owner",
+    role: "Local business",
+  },
+  {
+    quote:
+      "Automation and follow-up systems saved us hours every week. Growth work finally felt organized instead of reactive.",
+    name: "Operator",
+    role: "Growth & automation",
+  },
+];
 
 export const trustChips = [
   "Custom Websites",
@@ -302,24 +356,24 @@ export const teamMembers = [
 
 export const whyHiy = [
   {
-    title: "Everything at one place",
-    text: "From websites and ads to videos, automation, and branding - your complete digital execution stays under one roof.",
+    title: "Website + ads + systems",
+    text: "Strategy, design, campaigns, and backend tools under one roof so your growth stack stays aligned.",
   },
   {
-    title: "Built for conversion",
-    text: "We do not create visuals just to look good. Every page, creative, and campaign is shaped around action.",
+    title: "Premium design that builds trust",
+    text: "Every touchpoint is shaped to feel credible, modern, and intentional before a visitor ever enquires.",
   },
   {
-    title: "Premium without confusion",
-    text: "Clear process, clean execution, and direct communication without unnecessary corporate complexity.",
+    title: "Conversion-first execution",
+    text: "Pages, creatives, and flows are built around clear CTAs, enquiry paths, and measurable next steps.",
   },
   {
-    title: "Modern systems",
-    text: "We use modern tools, automation, dashboards, and scalable structures so your business can move faster.",
+    title: "Fast launch, clean backend",
+    text: "Go live quickly with hosting, forms, tracking, and admin-ready setup you can actually manage.",
   },
   {
-    title: "Human-first strategy",
-    text: "We understand that behind every business is a real goal: more enquiries, more trust, more sales, and less chaos.",
+    title: "Human support, not corporate noise",
+    text: "Direct communication, clear ownership, and practical guidance without endless handoffs.",
   },
 ];
 

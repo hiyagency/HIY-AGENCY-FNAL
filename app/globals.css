@@ -207,6 +207,20 @@
   .marquee-track:hover {
     animation-play-state: paused;
   }
+
+  .shipped-marquee-track {
+    animation: marquee 38s linear infinite;
+    will-change: transform;
+  }
+
+  .shipped-marquee-reverse {
+    animation-direction: reverse;
+    animation-duration: 44s;
+  }
+
+  .shipped-marquee-track:hover {
+    animation-play-state: paused;
+  }
 }
 
 @keyframes marquee {
