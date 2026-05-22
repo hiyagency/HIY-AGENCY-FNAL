@@ -30,6 +30,11 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 dev-server*.log
+.playwright-mcp/
+
+# local agent tooling
+.claude/
+.codex/
 
 # env files (can opt-in for committing if needed)
 .env*
@@ -40,5 +45,3 @@ dev-server*.log
 # typescript
 *.tsbuildinfo
 next-env.d.ts
-
-.vercel
