@@ -7,11 +7,21 @@ import { LeadForm } from "@/components/public/LeadForm";
 import { PublicNav } from "@/components/public/PublicNav";
 import { SocialIconLinks } from "@/components/public/SocialIconLinks";
 import { contactInfo } from "@/lib/content";
+import { absoluteUrl } from "@/lib/seo";
 
 export const metadata: Metadata = {
-  title: "Contact",
+  title: "Contact HIY Agency",
   description:
     "Start a HIY Agency project for websites, ads, video editing, automation, branding, social media, SEO listings, copywriting, AI systems, or growth infrastructure.",
+  alternates: {
+    canonical: "/contact",
+  },
+  openGraph: {
+    title: "Contact HIY Agency",
+    description:
+      "Start a website, marketing, video, automation, branding, SEO listings, copywriting, or AI systems project with HIY Agency.",
+    url: absoluteUrl("/contact"),
+  },
 };
 
 export default function ContactPage() {

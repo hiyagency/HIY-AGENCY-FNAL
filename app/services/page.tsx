@@ -6,11 +6,21 @@ import { Reveal } from "@/components/motion/Reveal";
 import { Footer } from "@/components/public/Footer";
 import { PublicNav } from "@/components/public/PublicNav";
 import { getPublishedServices } from "@/lib/data";
+import { absoluteUrl } from "@/lib/seo";
 
 export const metadata: Metadata = {
-  title: "Services",
+  title: "Services - Websites, AI Automation, Ads & SEO Listings",
   description:
-    "Premium websites, paid growth, video systems, automation, branding, social media, SEO listings, copywriting, and ad creatives by HIY Agency.",
+    "Explore HIY Agency services: custom websites, performance marketing, video editing, AI automation, branding, social media, SEO listings, copywriting, and ad creatives.",
+  alternates: {
+    canonical: "/services",
+  },
+  openGraph: {
+    title: "HIY Agency Services",
+    description:
+      "Custom websites, paid ads, video editing, automation, branding, social media, SEO listings, copywriting, and ad creatives.",
+    url: absoluteUrl("/services"),
+  },
 };
 
 export default async function ServicesPage() {

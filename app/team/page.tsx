@@ -4,11 +4,21 @@ import { Reveal } from "@/components/motion/Reveal";
 import { Footer } from "@/components/public/Footer";
 import { PublicNav } from "@/components/public/PublicNav";
 import { getPublishedTeamMembers } from "@/lib/data";
+import { absoluteUrl } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "Team",
   description:
     "Meet the HIY Agency founding team building websites, ads, content, production systems, AI experiences, and automation for modern businesses.",
+  alternates: {
+    canonical: "/team",
+  },
+  openGraph: {
+    title: "HIY Agency Team",
+    description:
+      "Meet the HIY Agency team building websites, marketing systems, automation, AI experiences, and content operations.",
+    url: absoluteUrl("/team"),
+  },
 };
 
 export default async function TeamPage() {

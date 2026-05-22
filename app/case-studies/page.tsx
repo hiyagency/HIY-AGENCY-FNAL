@@ -5,11 +5,21 @@ import { CaseStudyShowcase } from "@/components/public/CaseStudyShowcase";
 import { Footer } from "@/components/public/Footer";
 import { PublicNav } from "@/components/public/PublicNav";
 import { getPublishedCaseStudies } from "@/lib/data";
+import { absoluteUrl } from "@/lib/seo";
 
 export const metadata: Metadata = {
-  title: "Case Studies",
+  title: "Our Work & Case Studies",
   description:
     "Published HIY Agency case studies and growth systems for websites, ads, automation, AI systems, and content.",
+  alternates: {
+    canonical: "/case-studies",
+  },
+  openGraph: {
+    title: "HIY Agency Work and Case Studies",
+    description:
+      "Published case studies, shipped projects, launches, and growth systems from HIY Agency.",
+    url: absoluteUrl("/case-studies"),
+  },
 };
 
 export default async function CaseStudiesPage() {

@@ -2,6 +2,18 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { SmoothScroll } from "@/components/motion/SmoothScroll";
 import { Toaster } from "@/components/ui/sonner";
+import {
+  absoluteUrl,
+  jsonLdScript,
+  navigationJsonLd,
+  organizationJsonLd,
+  seoKeywords,
+  siteDescription,
+  siteName,
+  siteTitle,
+  siteUrl,
+  websiteJsonLd,
+} from "@/lib/seo";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -15,28 +27,49 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://hiyagency.in"),
+  metadataBase: new URL(siteUrl),
+  applicationName: siteName,
   title: {
-    default: "HIY AGENCY - Digital Infrastructure & Growth Systems",
-    template: "%s | HIY AGENCY",
+    default: siteTitle,
+    template: "%s | HIY Agency",
   },
-  description:
-    "HIY Agency builds premium websites, AI systems, automation infrastructure, content engines, and paid growth systems for ambitious modern businesses.",
-  keywords: [
-    "HIY Agency",
-    "digital infrastructure",
-    "premium websites",
-    "AI systems",
-    "growth agency",
-    "automation studio",
-  ],
+  description: siteDescription,
+  keywords: seoKeywords,
+  alternates: {
+    canonical: "/",
+  },
   openGraph: {
-    title: "HIY AGENCY - Digital Infrastructure & Growth Systems",
-    description:
-      "A futuristic premium growth agency for websites, AI experiences, automation, paid media, and business systems.",
-    url: "https://hiyagency.in",
-    siteName: "HIY AGENCY",
+    title: siteTitle,
+    description: siteDescription,
+    url: siteUrl,
+    siteName,
+    images: [
+      {
+        url: absoluteUrl("/icon.svg"),
+        width: 512,
+        height: 512,
+        alt: "HIY Agency logo",
+      },
+    ],
+    locale: "en_IN",
     type: "website",
+  },
+  twitter: {
+    card: "summary",
+    title: siteTitle,
+    description: siteDescription,
+    images: [absoluteUrl("/icon.svg")],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
   },
   icons: {
     icon: "/icon.svg",
@@ -56,6 +89,16 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} dark h-full scroll-smooth antialiased`}
     >
       <body className="min-h-full bg-[#050505] text-[#f5f7ff]">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: jsonLdScript([
+              organizationJsonLd,
+              websiteJsonLd,
+              navigationJsonLd,
+            ]),
+          }}
+        />
         <SmoothScroll />
         {children}
         <Toaster />
