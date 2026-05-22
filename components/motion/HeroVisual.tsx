@@ -1,8 +1,7 @@
 "use client";
 
-import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { Activity, Bot, CheckCircle2, DatabaseZap, MousePointer2, TrendingUp } from "lucide-react";
-import { useRef } from "react";
 import { HeroPipelineCard } from "@/components/motion/HeroPipelineCard";
 
 const metrics = [
@@ -13,37 +12,27 @@ const metrics = [
 
 export function HeroVisual() {
   const reducedMotion = useReducedMotion();
-  const ref = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
-  const y = useTransform(scrollYProgress, [0, 1], [50, -70]);
-  const rotate = useTransform(scrollYProgress, [0, 1], [-3, 3]);
 
   return (
-    <div ref={ref} className="relative mx-auto w-full max-w-[620px] perspective-dramatic">
-      <motion.div
+    <div className="relative mx-auto w-full max-w-[620px] perspective-dramatic">
+      <div
         className="absolute -inset-4 bg-[radial-gradient(ellipse_at_center,rgba(63,91,255,0.34),transparent_68%)] blur-3xl sm:-inset-10"
-        animate={reducedMotion ? undefined : { opacity: [0.5, 0.9, 0.55], scale: [0.96, 1.04, 0.96] }}
-        transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
       />
 
-      <motion.div
-        className="absolute -left-2 top-10 z-10 hidden rounded-3xl border border-[#7d97ff]/20 bg-[#07102a]/70 p-4 text-white shadow-[0_26px_90px_rgba(36,59,255,0.32)] backdrop-blur-2xl md:block"
-        animate={reducedMotion ? undefined : { y: [0, -12, 0] }}
-        transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-      >
+      <div className="absolute -left-2 top-10 z-10 hidden rounded-3xl border border-[#7d97ff]/20 bg-[#07102a]/82 p-4 text-white shadow-[0_20px_60px_rgba(36,59,255,0.24)] md:block">
         <div className="flex items-center gap-3 text-xs uppercase tracking-[0.22em] text-[#9eb0ff]/72">
           <DatabaseZap className="size-4" />
           Lead pipeline
         </div>
         <p className="mt-3 font-heading text-2xl font-semibold tracking-tight">AI qualified</p>
         <p className="mt-1 text-sm text-[#c7d1ff]/58">Website - CRM - WhatsApp</p>
-      </motion.div>
+      </div>
 
       <motion.div
-        className="relative hidden overflow-hidden rounded-[2rem] border border-[#7d97ff]/20 bg-[#05070d]/84 p-4 shadow-[0_42px_140px_rgba(0,16,124,0.38)] backdrop-blur-xl sm:block"
-        style={reducedMotion ? undefined : { y, rotateZ: rotate }}
-        animate={reducedMotion ? undefined : { rotateX: [0, 2, 0], rotateY: [0, -4, 0] }}
-        transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+        className="relative hidden overflow-hidden rounded-[2rem] border border-[#7d97ff]/20 bg-[#05070d]/88 p-4 shadow-[0_28px_90px_rgba(0,16,124,0.26)] sm:block"
+        initial={reducedMotion ? false : { opacity: 0, y: 22 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
       >
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_10%,rgba(63,91,255,0.40),transparent_34%),radial-gradient(circle_at_80%_75%,rgba(118,228,255,0.14),transparent_30%)]" />
         <div className="absolute inset-0 bg-[linear-gradient(115deg,transparent,rgba(245,247,255,0.10),transparent_56%)] opacity-70" />
@@ -63,7 +52,7 @@ export function HeroVisual() {
               const Icon = metric.icon;
               return (
                 <div
-                  className="group rounded-2xl border border-[#7d97ff]/14 bg-[#07102a]/58 p-4 transition duration-500 hover:-translate-y-1 hover:border-[#7d97ff]/40 hover:bg-[#10246d]/42"
+                  className="group rounded-2xl border border-[#7d97ff]/14 bg-[#07102a]/58 p-4 transition-colors duration-300 hover:border-[#7d97ff]/40 hover:bg-[#10246d]/42"
                   key={metric.label}
                 >
                   <Icon className="size-4 text-[#9eb0ff]" />
@@ -83,13 +72,15 @@ export function HeroVisual() {
               </div>
               <div className="mt-8 flex h-32 items-end gap-2">
                 {[34, 58, 44, 76, 64, 92, 82, 100].map((height, index) => (
-                  <motion.div
-                    className="flex-1 rounded-t bg-[linear-gradient(180deg,#f5f7ff,#3f5bff_55%,#1426a4)] shadow-[0_0_24px_rgba(63,91,255,0.28)]"
-                    initial={{ height: 12 }}
-                    animate={{ height: `${height}%` }}
-                    transition={{ delay: index * 0.07, duration: 0.7 }}
-                    key={height}
-                  />
+                  <div className="flex h-full flex-1 items-end" key={height}>
+                    <motion.div
+                      className="w-full origin-bottom rounded-t bg-[linear-gradient(180deg,#f5f7ff,#3f5bff_55%,#1426a4)] shadow-[0_0_24px_rgba(63,91,255,0.28)]"
+                      initial={{ scaleY: 0.15, opacity: 0.6 }}
+                      animate={{ scaleY: 1, opacity: 1 }}
+                      transition={{ delay: index * 0.04, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                      style={{ height: `${height}%` }}
+                    />
+                  </div>
                 ))}
               </div>
             </div>
@@ -110,17 +101,13 @@ export function HeroVisual() {
 
       <HeroPipelineCard />
 
-      <motion.div
-        className="absolute -bottom-4 right-0 z-10 hidden rounded-3xl border border-[#7d97ff]/25 bg-[#f5f7ff] p-4 text-[#050505] shadow-[0_26px_90px_rgba(63,91,255,0.28)] md:block"
-        animate={reducedMotion ? undefined : { y: [0, 14, 0] }}
-        transition={{ duration: 5.8, repeat: Infinity, ease: "easeInOut" }}
-      >
+      <div className="absolute -bottom-4 right-0 z-10 hidden rounded-3xl border border-[#7d97ff]/25 bg-[#f5f7ff] p-4 text-[#050505] shadow-[0_20px_60px_rgba(63,91,255,0.22)] md:block">
         <div className="flex items-center gap-2 text-xs uppercase tracking-[0.22em] text-[#243bff]/70">
           <MousePointer2 className="size-4" />
           Conversion path
         </div>
         <p className="mt-2 font-heading text-lg font-semibold">Traffic - Trust - Revenue</p>
-      </motion.div>
+      </div>
     </div>
   );
 }

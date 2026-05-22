@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import { SmoothScroll } from "@/components/motion/SmoothScroll";
 import { Toaster } from "@/components/ui/sonner";
 import {
   absoluteUrl,
   jsonLdScript,
+  localBusinessJsonLd,
   navigationJsonLd,
   organizationJsonLd,
+  serviceCatalogJsonLd,
   seoKeywords,
   siteDescription,
   siteName,
@@ -94,12 +95,13 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{
             __html: jsonLdScript([
               organizationJsonLd,
+              localBusinessJsonLd,
               websiteJsonLd,
               navigationJsonLd,
+              serviceCatalogJsonLd,
             ]),
           }}
         />
-        <SmoothScroll />
         {children}
         <Toaster />
       </body>

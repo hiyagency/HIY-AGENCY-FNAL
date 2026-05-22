@@ -5,7 +5,7 @@ import { CaseStudyShowcase } from "@/components/public/CaseStudyShowcase";
 import { Footer } from "@/components/public/Footer";
 import { PublicNav } from "@/components/public/PublicNav";
 import { getPublishedCaseStudies } from "@/lib/data";
-import { absoluteUrl } from "@/lib/seo";
+import { absoluteUrl, breadcrumbJsonLd, jsonLdScript } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "Our Work & Case Studies",
@@ -24,9 +24,40 @@ export const metadata: Metadata = {
 
 export default async function CaseStudiesPage() {
   const caseStudies = await getPublishedCaseStudies();
+  const caseStudiesJsonLd = [
+    breadcrumbJsonLd([
+      { name: "Home", path: "/" },
+      { name: "Case Studies", path: "/case-studies" },
+    ]),
+    {
+      "@context": "https://schema.org",
+      "@type": "CollectionPage",
+      "@id": absoluteUrl("/case-studies#collection"),
+      name: "HIY Agency case studies",
+      description:
+        "Published HIY Agency case studies and growth systems for websites, ads, automation, AI systems, and content.",
+      url: absoluteUrl("/case-studies"),
+      hasPart: caseStudies.map((study) => ({
+        "@type": "Article",
+        headline: study.title,
+        description: `${study.problem} ${study.solution} ${study.result}`,
+        url: absoluteUrl("/case-studies"),
+        author: {
+          "@id": absoluteUrl("/#organization"),
+        },
+        publisher: {
+          "@id": absoluteUrl("/#organization"),
+        },
+      })),
+    },
+  ];
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: jsonLdScript(caseStudiesJsonLd) }}
+      />
       <AmbientBackground />
       <PublicNav />
       <main className="relative z-10 min-h-screen px-4 pb-16 pt-28 text-[#f5f7ff] sm:px-6 sm:pb-24 sm:pt-32 lg:px-8">

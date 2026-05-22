@@ -17,10 +17,10 @@ export function Reveal({
   return (
     <motion.div
       className={className}
-      initial={prefersReducedMotion ? false : { y: 24 }}
-      whileInView={prefersReducedMotion ? undefined : { y: 0 }}
-      viewport={{ once: true, margin: "-80px" }}
-      transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1], delay }}
+      initial={prefersReducedMotion ? false : { y: 24, opacity: 0 }}
+      whileInView={prefersReducedMotion ? undefined : { y: 0, opacity: 1 }}
+      viewport={{ once: true, amount: 0.25 }}
+      transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1], delay }}
     >
       {children}
     </motion.div>

@@ -86,6 +86,29 @@ export const trustChips = [
   "SEO Listings",
 ];
 
+export const homepageFaqs = [
+  {
+    question: "What does HIY Agency do?",
+    answer:
+      "HIY Agency builds custom websites, AI automation systems, performance marketing campaigns, video content systems, branding, SEO listings, copywriting, and ad creatives for businesses that need a premium digital growth layer.",
+  },
+  {
+    question: "Who is HIY Agency best for?",
+    answer:
+      "HIY Agency is best for businesses, founders, local brands, service providers, ecommerce teams, real estate firms, education brands, and growing companies that need a website, lead flow, campaign, or automation system built as one connected experience.",
+  },
+  {
+    question: "Can HIY Agency build both the website and the marketing system?",
+    answer:
+      "Yes. HIY Agency can plan the offer, write the conversion copy, design and build the website, set up CTAs and lead forms, create ad creatives, run paid campaigns, and connect automation or CRM workflows.",
+  },
+  {
+    question: "Does HIY Agency work with businesses outside India?",
+    answer:
+      "Yes. HIY Agency serves businesses in India and can work with global clients remotely for websites, campaigns, automation systems, content production, and growth infrastructure.",
+  },
+];
+
 export const positioningCards = [
   {
     title: "Online Presence",

@@ -6,7 +6,7 @@ import { Reveal } from "@/components/motion/Reveal";
 import { Footer } from "@/components/public/Footer";
 import { PublicNav } from "@/components/public/PublicNav";
 import { getPublishedServices } from "@/lib/data";
-import { absoluteUrl } from "@/lib/seo";
+import { absoluteUrl, breadcrumbJsonLd, jsonLdScript } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "Services - Websites, AI Automation, Ads & SEO Listings",
@@ -25,9 +25,40 @@ export const metadata: Metadata = {
 
 export default async function ServicesPage() {
   const services = await getPublishedServices();
+  const servicesJsonLd = [
+    breadcrumbJsonLd([
+      { name: "Home", path: "/" },
+      { name: "Services", path: "/services" },
+    ]),
+    {
+      "@context": "https://schema.org",
+      "@type": "ItemList",
+      "@id": absoluteUrl("/services#service-list"),
+      name: "HIY Agency services",
+      itemListElement: services.map((service, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        item: {
+          "@type": "Service",
+          "@id": absoluteUrl(`/services#${service.slug}`),
+          name: service.shortTitle ?? service.title,
+          description: service.description,
+          provider: {
+            "@id": absoluteUrl("/#organization"),
+          },
+          areaServed: ["India", "Global"],
+          serviceType: service.shortTitle ?? service.title,
+        },
+      })),
+    },
+  ];
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: jsonLdScript(servicesJsonLd) }}
+      />
       <AmbientBackground />
       <PublicNav />
       <main className="relative z-10 px-4 pb-16 pt-28 text-[#f5f7ff] sm:px-6 sm:pb-24 sm:pt-32 lg:px-8">

@@ -15,7 +15,7 @@ export function HeroPipelineCard() {
 
   return (
     <motion.div
-      className="relative z-20 mt-6 w-full rounded-2xl border border-[#7d97ff]/22 bg-[#07102a]/88 p-4 shadow-[0_20px_70px_rgba(36,59,255,0.32)] backdrop-blur-2xl sm:absolute sm:-right-4 sm:bottom-8 sm:mt-0 sm:w-[min(92vw,280px)]"
+      className="relative z-20 mt-6 w-full rounded-2xl border border-[#7d97ff]/22 bg-[#07102a]/92 p-4 shadow-[0_18px_52px_rgba(36,59,255,0.24)] sm:absolute sm:-right-4 sm:bottom-8 sm:mt-0 sm:w-[min(92vw,280px)]"
       animate={reducedMotion ? undefined : { y: [0, -8, 0] }}
       transition={{ duration: 5.5, repeat: Infinity, ease: "easeInOut" }}
     >
@@ -43,7 +43,7 @@ export function HeroPipelineCard() {
                     stage.status === "done"
                       ? "text-[#9eb0ff]"
                       : stage.status === "active"
-                        ? "text-[#76e4ff] animate-pulse"
+                        ? "text-[#76e4ff]"
                         : "text-[#7d97ff]/35"
                   }`}
                 />
@@ -58,10 +58,10 @@ export function HeroPipelineCard() {
               transition={{ delay: index * 0.12 + 0.1 }}
             >
               <motion.div
-                className="h-full rounded-full bg-[linear-gradient(90deg,#3f5bff,#76e4ff)]"
-                initial={{ width: 0 }}
-                animate={{ width: `${stage.progress}%` }}
-                transition={{ delay: index * 0.15 + 0.2, duration: 0.8, ease: "easeOut" }}
+                className="h-full origin-left rounded-full bg-[linear-gradient(90deg,#3f5bff,#76e4ff)]"
+                initial={{ scaleX: 0 }}
+                animate={{ scaleX: stage.progress / 100 }}
+                transition={{ delay: index * 0.08 + 0.1, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
               />
             </motion.div>
           </div>

@@ -1,10 +1,10 @@
 import { contactInfo } from "@/lib/content";
 
-export const siteUrl = "https://hiyagency.in";
+export const siteUrl = "https://hiy.agency";
 export const siteName = "HIY Agency";
 export const siteTitle = "HIY Agency | Websites, AI Automation & Growth Marketing";
 export const siteDescription =
-  "HIY Agency builds custom websites, AI automation, performance marketing, video editing, branding, social media, SEO listings, and growth systems for businesses.";
+  "HIY Agency builds custom websites, AI automation, performance marketing, video editing, branding, SEO listings, copywriting, ad creatives, and growth systems for businesses.";
 
 export const seoKeywords = [
   "HIY Agency",
@@ -12,12 +12,16 @@ export const seoKeywords = [
   "website development agency",
   "digital marketing agency",
   "AI automation agency",
+  "AI systems agency",
   "performance marketing agency",
   "video editing agency",
   "branding agency",
-  "social media management",
   "SEO listings",
+  "copywriting agency",
+  "ad creative agency",
   "Google Business Profile setup",
+  "growth systems agency",
+  "landing page agency",
 ];
 
 export const publicRoutes = [
@@ -74,8 +78,10 @@ export const organizationJsonLd = {
   url: siteUrl,
   logo: absoluteUrl("/icon.svg"),
   image: absoluteUrl("/icon.svg"),
+  description: siteDescription,
   email: contactInfo.email,
   telephone: `+91${contactInfo.phone}`,
+  foundingDate: "2026",
   areaServed: ["India", "Global"],
   sameAs: [
     contactInfo.instagram,
@@ -105,6 +111,65 @@ export const organizationJsonLd = {
   ],
 };
 
+export const localBusinessJsonLd = {
+  "@context": "https://schema.org",
+  "@type": ["LocalBusiness", "ProfessionalService"],
+  "@id": `${siteUrl}/#local-business`,
+  name: siteName,
+  url: siteUrl,
+  image: absoluteUrl("/icon.svg"),
+  logo: absoluteUrl("/icon.svg"),
+  description: siteDescription,
+  email: contactInfo.email,
+  telephone: `+91${contactInfo.phone}`,
+  priceRange: "₹₹",
+  areaServed: [
+    {
+      "@type": "Country",
+      name: "India",
+    },
+    {
+      "@type": "Place",
+      name: "Global remote clients",
+    },
+  ],
+  sameAs: [
+    contactInfo.instagram,
+    contactInfo.linkedin,
+    contactInfo.facebook,
+  ],
+};
+
+export const serviceCatalogJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "OfferCatalog",
+  "@id": `${siteUrl}/#service-catalog`,
+  name: "HIY Agency service catalog",
+  url: absoluteUrl("/services"),
+  itemListElement: [
+    "Custom Websites",
+    "Performance Marketing",
+    "Video Editing",
+    "Automation & AI Systems",
+    "Branding & Positioning",
+    "Funnels & Landing Pages",
+    "SEO Listings",
+    "Copywriting",
+    "Ad Creatives",
+  ].map((name, index) => ({
+    "@type": "Offer",
+    position: index + 1,
+    itemOffered: {
+      "@type": "Service",
+      name,
+      provider: {
+        "@id": `${siteUrl}/#organization`,
+      },
+      areaServed: ["India", "Global"],
+    },
+  })),
+};
+
 export const websiteJsonLd = {
   "@context": "https://schema.org",
   "@type": "WebSite",
@@ -116,6 +181,11 @@ export const websiteJsonLd = {
     "@id": `${siteUrl}/#organization`,
   },
   inLanguage: "en",
+  potentialAction: {
+    "@type": "SearchAction",
+    target: `${siteUrl}/services?query={search_term_string}`,
+    "query-input": "required name=search_term_string",
+  },
 };
 
 export const navigationJsonLd = {
@@ -129,3 +199,16 @@ export const navigationJsonLd = {
     url: absoluteUrl(route.path),
   })),
 };
+
+export function breadcrumbJsonLd(items: Array<{ name: string; path: string }>) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: items.map((item, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: item.name,
+      item: absoluteUrl(item.path),
+    })),
+  };
+}
