@@ -77,6 +77,11 @@ export const metadata: Metadata = {
     shortcut: "/icon.svg",
     apple: "/icon.svg",
   },
+  verification: {
+    other: {
+      "facebook-domain-verification": "rl9p3vt413qa50ffoll05p2c1fshuu",
+    },
+  },
 };
 
 export default function RootLayout({
